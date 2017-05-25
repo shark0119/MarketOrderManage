@@ -84,5 +84,14 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		this.closeAll();
 		return row;
 	}
+	@Override
+	public User addUser(GenerateSql gs) {
+		if (!this.getConnection())
+			return null;
+		User user = new User ();
+		user= this.excuteAdd (gs.getSql(), user,gs.getPara());
+		this.closeAll();
+		return user;
+	}
 
 }

@@ -1,16 +1,20 @@
 package com.shark.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ResourceBundle;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.shark.entity.User;
 
 public class BaseDao {
 	
@@ -26,9 +30,7 @@ public class BaseDao {
 	 */
 	public boolean getConnection(){
 		try {
-			System.out.println(rb.getString("driver"));
 			Class.forName(rb.getString("driver"));
-			
 			connection =DriverManager.getConnection(rb.getString("url"),rb.getString("username"),rb.getString("password"));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,6 +92,30 @@ public class BaseDao {
 			return -1;
 		}
 		return row;
+	}
+	/**
+	 * @param sql
+	 * @param params
+	 * @return 当前新增记录由数据库自动产生的主键，为Int类型
+	 */
+	public User excuteAdd (String sql , User user,Object...params){
+		try {
+			CallableStatement cstmt =connection.prepareCall(sql);
+			cstmt.registerOutParameter(5, Types.INTEGER);
+			cstmt.registerOutParameter(6, Types.DATE);
+			for(int i=0;i<params.length;i++){
+				cstmt.setObject(i+1, params[i]);
+			}
+			cstmt.execute();
+			user.setId(cstmt.getInt(5));
+			user.setCreateTime(cstmt.getDate(6));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			this.closeAll();
+		}
+		return user;
 	}
 	/**
 	 * 释放资源

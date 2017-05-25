@@ -20,10 +20,18 @@ public interface UserDao {
 	 */
 	User getUser (GenerateSql gs);
 	/**
-	 * 添加,删除,修改用户
+	 * 删除,修改用户
 	 * @return 数据库失败返回-1 成功返回受影响的行数
 	 */
 	int updateUser (GenerateSql gs);
 
+	/**
+	 * 添加用户
+	 * 以存储过程addUser进行数据插入，并获取数据库自动生成的值
+	 * procedure addUser 
+	 * (username, password, status, roleid, id-out, createtime-out)
+	 * @return 插入成功返回用户，否则返回null,包含数据库自动生成的值，并非全部信息
+	 */
+	User addUser (GenerateSql gs);
 	
 }

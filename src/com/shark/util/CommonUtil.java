@@ -22,7 +22,7 @@ public class CommonUtil {
 		ResultSet rset = bd.executeQuery(gs.getSql(), gs.getPara());
 		try {
 			if (rset.next()){
-				return rset.getInt("1");
+				return rset.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
