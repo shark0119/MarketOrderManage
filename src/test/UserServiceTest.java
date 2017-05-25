@@ -52,5 +52,9 @@ public class UserServiceTest {
 			System.out.println(user);
 		}
 	}
+	@Test
+	public void testLoginVerify (){
+		System.out.println(us.loginVerify("ÀîËÄ", "123"));
+	}
 
 }

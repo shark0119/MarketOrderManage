@@ -74,4 +74,15 @@ public class UserService {
 		gs = new UserSql(sql, id);
 		return ud.getUser(gs);
 	}
+	/**
+	 * 用户登录验证
+	 * @param username
+	 * @param pwd
+	 * @return 返回是否登录成功
+	 */
+	public boolean loginVerify (String username, String pwd){
+		String sql = "select * from tb_user where username=? and password = ? ";
+		gs = new UserSql (sql, username, pwd);
+		return ud.getUser(gs) != null;
+	}
 }
