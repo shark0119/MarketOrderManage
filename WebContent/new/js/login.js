@@ -1,5 +1,6 @@
 /**
  * 注册页面的js代码
+ * 从服务器接收json代码格式是 { "success": true, "msg": "xxx" }
  */
 $(document).ready (function (){
 	document.forms[0].onsubmit = check;

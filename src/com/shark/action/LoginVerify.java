@@ -17,39 +17,46 @@ import com.shark.service.UserService;
 @WebServlet(description = "登录验证", urlPatterns = { "/action/LoginVerify" })
 public class LoginVerify extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginVerify() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public LoginVerify() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.getWriter().write("must post");
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 返回给客户端json代码格式是 { "success": true, "msg": "xxx" }
+	 * success 是否登录成功 msg登录失败包含的信息
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		UserService us = new UserService();
 		User user = us.loginVerify(request.getParameter("username"), request.getParameter("pwd"));
-		if (user != null){
-			if (user.getStatus() == 2)
+		if (user != null) {
+			if (user.getStatus() == 2){
 				response.getWriter().write("{\"success\": false,\"msg\": \"用户已被禁用，请联系管理员\"}");
-			else{
+			}else {
 				response.getWriter().write("{\"success\": true,\"msg\": \"\"}");
 				HttpSession session = request.getSession();
 				session.setAttribute("roleid", user.getRole());
 				session.setAttribute("id", user.getId());
 				session.setAttribute("username", user.getUsername());
 			}
-		}else
+		} else{
 			response.getWriter().write("{\"success\": false,\"msg\": \"用户名或密码错误!!!\"}");
+		}
 	}
 
 }
