@@ -13,8 +13,15 @@ import com.shark.service.UserService;
 
 /**
  * Servlet implementation class LoginVerify
+ * 登录验证，登录成功后，会将相应的信息存入session中
+ * 包括是否登录
+ * Login : string 已登录为true
+ * roleid: int 角色类型
+ * id : int 	用户ID
+ * username: String 用户姓名
+ * 四个字段
  */
-@WebServlet(description = "登录验证", urlPatterns = { "/action/LoginVerify" })
+@WebServlet(description = "初次登录验证", urlPatterns = { "/LoginVerify" })
 public class LoginVerify extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -53,6 +60,8 @@ public class LoginVerify extends HttpServlet {
 				session.setAttribute("roleid", user.getRole());
 				session.setAttribute("id", user.getId());
 				session.setAttribute("username", user.getUsername());
+				session.setAttribute("login", "true");
+				session.setAttribute("contentPageName", "welcome.jsp");
 			}
 		} else{
 			response.getWriter().write("{\"success\": false,\"msg\": \"用户名或密码错误!!!\"}");

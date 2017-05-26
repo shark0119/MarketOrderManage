@@ -12,4 +12,13 @@
     <filter-name>EncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <filter>
+    <filter-name>CommonLoginFilter</filter-name>
+    <filter-class>com.shark.filter.CommonLogin</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CommonLoginFilter</filter-name>
+    <url-pattern>/jsp/main/*</url-pattern>
+    <url-pattern>/action/*</url-pattern>
+  </filter-mapping>
 </web-app>
