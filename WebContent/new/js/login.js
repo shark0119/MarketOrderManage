@@ -14,13 +14,6 @@ function check (){
 				pwd: $("#mima").val()
 			},
 			function (data){
-				/*if (data === "true"){
-					document.forms[0].onsubmit = 
-						(function(){return true;})();
-					document.forms[0].submit();
-				}else{
-					alert ("用户名或密码错误");
-				}*/
 				var dataobj = JSON.parse (data);
 				if (dataobj.success){
 					document.forms[0].onsubmit = 
@@ -30,6 +23,6 @@ function check (){
 					alert (dataobj.msg);
 				}
 			}
-	);
+	).error(function(){alert ("服务器错误，请稍后再试")});
 	return false;
 }

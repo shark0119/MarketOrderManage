@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.shark.entity.Pager;
 import com.shark.entity.User;
 import com.shark.service.UserService;
 
@@ -47,7 +48,8 @@ public class UserServiceTest {
 	}
 	@Test
 	public void testPage (){
-		List <User> ul = us.getUserList(4, 5);
+		Pager pager = new Pager(1, 4, 0, 1);
+		List <User> ul = us.getUserList(pager);
 		for (User user: ul){
 			System.out.println(user);
 		}

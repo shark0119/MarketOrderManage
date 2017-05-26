@@ -9,7 +9,7 @@
 	
 	<body>
 		<select>
-			<option > </option>
+			<option <c:if test=""></c:if>> </option>
 			<option>tag2</option>
 		</select>
 	</body>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.shark.dao.UserDao;
 import com.shark.dao.impl.UserDaoImpl;
+import com.shark.entity.Pager;
 import com.shark.entity.User;
 import com.shark.sql.GenerateSql;
 import com.shark.sql.UserSql;
@@ -41,7 +42,11 @@ public class UserService {
 	 * @param pageSize 每一页显示的个数
 	 * @return 由结果集转化而来的实体集合,数据库失败返回null, 查询成功返回集合，集合元素个数为0表示无对应记录
 	 */
-	public List<User> getUserList (int pageIndex, int pageSize){
+	public List<User> getUserList (Pager pager){
+		int pageIndex, pageSize;
+		pageIndex = pager.getPageIndex();
+		pageSize = pager.getPageSize();
+		pager.setTotalCount(getUserCount());
 		String sql = "select * from "+
 				" (select rownum rn, t1.* from (select * from tb_user) t1) " +
 				" where rn > ? and rn <= ? ";
