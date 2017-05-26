@@ -78,11 +78,11 @@ public class UserService {
 	 * 用户登录验证
 	 * @param username
 	 * @param pwd
-	 * @return 成功返回true，失败返回FALSE
+	 * @return 成功返回用户实例失败返回null
 	 */
-	public boolean loginVerify (String username, String pwd){
+	public User loginVerify (String username, String pwd){
 		String sql = "select * from tb_user where username=? and password = ? ";
 		gs = new UserSql (sql, username, pwd);
-		return ud.getUser(gs) != null;
+		return ud.getUser(gs) ;
 	}
 }
