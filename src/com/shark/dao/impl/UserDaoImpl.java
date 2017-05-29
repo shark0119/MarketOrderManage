@@ -34,11 +34,13 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 			while (rset.next()){
 				user = new User ();
 				user.setId(rset.getInt("id"));
-				user.setUsername(rset.getString("username"));
+				user.setName(rset.getString("username"));
 				user.setPwd(rset.getString("password"));
-				user.setStatus(rset.getInt("status"));
-				user.setCreateTime(rset.getDate("createTime"));
-				user.setRole(rset.getInt("roleid"));
+				user.setSex(rset.getString("sex"));
+				user.setAge(rset.getInt("age"));
+				user.setMobile(rset.getString("mobile"));
+				user.setAddress(rset.getString("address"));
+				user.setRid(rset.getInt("roleid"));
 				userList.add(user);
 			}
 		} catch (SQLException e) {
@@ -59,14 +61,14 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		try {
 			if (rset.next()) {
 				user = new User();
-				/*... do something*/
-				user = new User ();
 				user.setId(rset.getInt("id"));
-				user.setUsername(rset.getString("username"));
+				user.setName(rset.getString("username"));
 				user.setPwd(rset.getString("password"));
-				user.setStatus(rset.getInt("status"));
-				user.setCreateTime(rset.getDate("createTime"));
-				user.setRole(rset.getInt("roleid"));
+				user.setSex(rset.getString("sex"));
+				user.setAge(rset.getInt("age"));
+				user.setMobile(rset.getString("mobile"));
+				user.setAddress(rset.getString("address"));
+				user.setRid(rset.getInt("roleid"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,7 +91,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		if (!this.getConnection())
 			return null;
 		User user = new User ();
-		user= this.excuteAdd (gs.getSql(), user,gs.getPara());
+		user= this.excuteAdd (gs.getSql(), user, gs.getPara());
 		this.closeAll();
 		return user;
 	}

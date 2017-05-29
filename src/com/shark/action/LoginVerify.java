@@ -52,17 +52,13 @@ public class LoginVerify extends HttpServlet {
 		UserService us = new UserService();
 		User user = us.loginVerify(request.getParameter("username"), request.getParameter("pwd"));
 		if (user != null) {
-			if (user.getStatus() == 2){
-				response.getWriter().write("{\"success\": false,\"msg\": \"用户已被禁用，请联系管理员\"}");
-			}else {
 				response.getWriter().write("{\"success\": true,\"msg\": \"\"}");
 				HttpSession session = request.getSession();
-				session.setAttribute("roleid", user.getRole());
+				session.setAttribute("roleid", user.getRid());
 				session.setAttribute("id", user.getId());
-				session.setAttribute("username", user.getUsername());
+				session.setAttribute("username", user.getName());
 				session.setAttribute("login", "true");
 				session.setAttribute("contentPageName", "welcome.jsp");
-			}
 		} else{
 			response.getWriter().write("{\"success\": false,\"msg\": \"用户名或密码错误!!!\"}");
 		}

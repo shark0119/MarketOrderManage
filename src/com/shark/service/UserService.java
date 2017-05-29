@@ -20,12 +20,10 @@ public class UserService {
 	 * @return 成功返回插入的user对象 失败返回null
 	 */
 	public User addUser (User user){
-		String sql = "{call addUser (?, ?, ?, ?, ?, ?)}";
-		gs = new UserSql(sql, user.getUsername(), user.getPwd(), 
-						user.getStatus(), user.getRole());
+		String sql = "{?=call addUser1 (?, ?, ?, ?, ?, ?, ?)}";
+		gs = new UserSql(sql, user.getName(), user.getPwd(), user.getSex(), user.getAge(), user.getMobile(), user.getAddress(), user.getRid());
 		User u1 = ud.addUser(gs);
 		user.setId(u1.getId());
-		user.setCreateTime(u1.getCreateTime());
 		return user;
 	}
 	/**
@@ -33,7 +31,7 @@ public class UserService {
 	 * @return 由结果集转化而来的实体集合,数据库失败返回null, 查询成功返回集合，集合元素个数为0表示无对应记录
 	*/
 	public List<User> getUserList (){
-		String sql = " select * from tb_user ";
+		String sql = " select * from mk_user ";
 		return ud.getUserList(new UserSql (sql));
 	}
 	/**
@@ -48,7 +46,7 @@ public class UserService {
 		pageSize = pager.getPageSize();
 		pager.setTotalCount(getUserCount());
 		String sql = "select * from "+
-				" (select rownum rn, t1.* from (select * from tb_user) t1) " +
+				" (select rownum rn, t1.* from (select * from mk_user) t1) " +
 				" where rn > ? and rn <= ? ";
 		return ud.getUserList(new UserSql(sql, (pageIndex-1)*pageSize, pageIndex*pageSize));
 	}
@@ -57,7 +55,7 @@ public class UserService {
 	 * @return 用户的总数
 	 */
 	public int getUserCount (){
-		String sql = "select count(id) from tb_user";
+		String sql = "select count(id) from mk_user";
 		return CommonUtil.getCount(new UserSql(sql));
 	}
 	/**
@@ -65,7 +63,7 @@ public class UserService {
 	 * @return 成功为true 失败为FALSE
 	 */
 	public boolean deleteUser (int id){
-		String sql = "delete from tb_user where id = ?";
+		String sql = "delete from mk_user where id = ?";
 		gs = new UserSql(sql, id);
 		return -1 != ud.updateUser(gs);
 	}
@@ -75,7 +73,7 @@ public class UserService {
 	 * @return 返回查询到的用户，失败返回null
 	 */
 	public User getUser (int id){
-		String sql = "select * from tb_user where id = ?";
+		String sql = "select * from mk_user where id = ?";
 		gs = new UserSql(sql, id);
 		return ud.getUser(gs);
 	}
@@ -86,8 +84,16 @@ public class UserService {
 	 * @return 成功返回用户实例失败返回null
 	 */
 	public User loginVerify (String username, String pwd){
-		String sql = "select * from tb_user where username=? and password = ? ";
+		String sql = "select * from mk_user where username=? and password = ? ";
 		gs = new UserSql (sql, username, pwd);
 		return ud.getUser(gs) ;
+	}
+	/**
+	 * 根据用户名查询用户
+	 */
+	public User getUser (String name){
+		String sql = "select * from mk_user where username = ?";
+		gs = new UserSql(sql, name);
+		return ud.getUser(gs);
 	}
 }

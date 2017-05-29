@@ -101,14 +101,12 @@ public class BaseDao {
 	public User excuteAdd (String sql , User user,Object...params){
 		try {
 			CallableStatement cstmt =connection.prepareCall(sql);
-			cstmt.registerOutParameter(5, Types.INTEGER);
-			cstmt.registerOutParameter(6, Types.DATE);
+			cstmt.registerOutParameter(1, Types.INTEGER);
 			for(int i=0;i<params.length;i++){
-				cstmt.setObject(i+1, params[i]);
+				cstmt.setObject(i+2, params[i]);
 			}
 			cstmt.execute();
-			user.setId(cstmt.getInt(5));
-			user.setCreateTime(cstmt.getDate(6));
+			user.setId(cstmt.getInt(1));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

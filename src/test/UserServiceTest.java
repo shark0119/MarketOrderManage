@@ -19,10 +19,13 @@ public class UserServiceTest {
 	@Test
 	public void testAddUser (){
 		User user = new User ();
-		user.setUsername("hahaha");
+		user.setName("hahaha");
 		user.setPwd("asdf1234");
-		user.setRole(1);
-		user.setStatus(2);
+		user.setAddress("nowhere");
+		user.setAge(40);
+		user.setMobile("12312389078");
+		user.setRid(2);
+		user.setSex("ÄĞ");
 		user = us.addUser(user);
 		System.out.println(user);
 	}
@@ -32,12 +35,12 @@ public class UserServiceTest {
 	}
 	@Test
 	public void testGetUser (){
-		User user  = us.getUser(13);
+		User user  = us.getUser(18);
 		System.out.println(user);
 	}
 	@Test 
 	public void testDeleteUser (){
-		System.out.println(us.deleteUser(12));
+		System.out.println(us.deleteUser(17));
 	}
 	@Test
 	public void testGetUserList (){
@@ -48,7 +51,7 @@ public class UserServiceTest {
 	}
 	@Test
 	public void testPage (){
-		Pager pager = new Pager(1, 4, 0, 1);
+		Pager pager = new Pager(1, 2, 0, 1);
 		List <User> ul = us.getUserList(pager);
 		for (User user: ul){
 			System.out.println(user);
@@ -56,7 +59,7 @@ public class UserServiceTest {
 	}
 	@Test
 	public void testLoginVerify (){
-		System.out.println(us.loginVerify("ÀîËÄ", "123"));
+		System.out.println(us.loginVerify("admin", "123"));
 	}
 
 }
