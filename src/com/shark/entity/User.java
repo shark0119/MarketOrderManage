@@ -1,4 +1,10 @@
 package com.shark.entity;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * 用户实体类
  * @author Shark
@@ -10,26 +16,52 @@ package com.shark.entity;
  * mobile 电话号码
  * address 地址
  * rid 角色id
+ * rname 角色名
  *  */
 public class User {
 	private Integer id, age, rid;
-	private String name, pwd, sex, mobile, address;
-	
+	private String name, pwd, sex, mobile, address, rname;
+	private Date birth;
 	public User() {
+		id=-1;
+		age = -1;
+		rid = 2;
+		name = pwd = sex = mobile = address = rname = "";
+		try {
+			birth = new SimpleDateFormat("yyyy-MM-dd").parse("2000-1-1");
+		} catch (ParseException e) {
+			birth = new Date();
+		}
 	}
-	public User(Integer id, Integer age, Integer rid, String name, String pwd, String sex, String mobile,
-			String address) {
+	public User(Integer id, Date birth, Integer rid, String name, String pwd, String sex, String mobile,
+			String address, String rname) {
 		super();
 		this.id = id;
-		this.age = age;
+		this.birth = birth;
 		this.rid = rid;
 		this.name = name;
 		this.pwd = pwd;
 		this.sex = sex;
 		this.mobile = mobile;
 		this.address = address;
+		this.rname = rname;
 	}
-
+	public Date getBirth() {
+		return birth;
+	}
+	public void setBirth(Date birth) {
+		Calendar c = Calendar.getInstance();
+		if (birth == null){
+			c.set(2000, 1, 1); 
+			birth = c.getTime();;
+		}
+		this.birth = birth;
+		c.setTime(new Date());
+		int today = c.get(Calendar.YEAR);
+		c.setTime(birth);
+		int birthday = c.get(Calendar.YEAR);
+		this.age = today - birthday;
+	}
 	public Integer getRid() {
 		return rid;
 	}
@@ -44,9 +76,6 @@ public class User {
 	}
 	public Integer getAge() {
 		return age;
-	}
-	public void setAge(Integer age) {
-		this.age = age;
 	}
 	public String getName() {
 		return name;
@@ -78,9 +107,16 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getRname() {
+		return rname;
+	}
+	public void setRname(String rname) {
+		this.rname = rname;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", age=" + age + ", rid=" + rid + ", name=" + name + ", pwd=" + pwd + ", sex=" + sex
-				+ ", mobile=" + mobile + ", address=" + address + "]";
+				+ ", mobile=" + mobile + ", address=" + address + ", rname=" + rname + ", birth=" + birth + "]";
 	}
+
 }

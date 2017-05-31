@@ -4,13 +4,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.shark.dao.BaseDao;
+import com.shark.service.RoleService;
+import com.shark.service.UserService;
 import com.shark.sql.GenerateSql;
 
 public class CommonUtil {
 
 	private static BaseDao  bd;
+	private static UserService us;
+	private static RoleService rs;
 	static{
 		bd = new BaseDao ();
+		us = new UserService();
+		rs = new RoleService();
 	}
 	private CommonUtil(){}
 	/**
@@ -50,5 +56,17 @@ public class CommonUtil {
 			bd.closeAll();
 		}	
 		return null;
+	}
+	
+	public static UserService getUserService (){
+		return us;
+	}
+	public static RoleService getRoleService (){
+		return rs;
+	}
+	public static boolean isEmpty (String str){
+		if (str == null || str.equals(""))
+			return true;
+		return false;
 	}
 }

@@ -37,7 +37,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 				user.setName(rset.getString("username"));
 				user.setPwd(rset.getString("password"));
 				user.setSex(rset.getString("sex"));
-				user.setAge(rset.getInt("age"));
+				user.setBirth(rset.getTimestamp("birth"));
 				user.setMobile(rset.getString("mobile"));
 				user.setAddress(rset.getString("address"));
 				user.setRid(rset.getInt("roleid"));
@@ -65,7 +65,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 				user.setName(rset.getString("username"));
 				user.setPwd(rset.getString("password"));
 				user.setSex(rset.getString("sex"));
-				user.setAge(rset.getInt("age"));
+				user.setBirth(rset.getTimestamp("birth"));
 				user.setMobile(rset.getString("mobile"));
 				user.setAddress(rset.getString("address"));
 				user.setRid(rset.getInt("roleid"));

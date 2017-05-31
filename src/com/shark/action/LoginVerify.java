@@ -1,6 +1,9 @@
 package com.shark.action;
 
 import java.io.IOException;
+import java.util.Set;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,18 +27,10 @@ import com.shark.service.UserService;
 @WebServlet(description = "初次登录验证", urlPatterns = { "/LoginVerify" })
 public class LoginVerify extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public LoginVerify() {
 		super();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.getWriter().write("must post");
@@ -59,6 +54,11 @@ public class LoginVerify extends HttpServlet {
 				session.setAttribute("username", user.getName());
 				session.setAttribute("login", "true");
 				session.setAttribute("contentPageName", "welcome.jsp");
+				ServletContext application = session.getServletContext();
+				@SuppressWarnings("unchecked")
+				Set<Integer> idSet = (Set<Integer>) application.getAttribute("logedId");
+				idSet.add(user.getId());
+				System.out.println("目前已有" + idSet.size()+"人登录");
 		} else{
 			response.getWriter().write("{\"success\": false,\"msg\": \"用户名或密码错误!!!\"}");
 		}

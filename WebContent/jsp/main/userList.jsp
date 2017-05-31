@@ -5,39 +5,44 @@
 	<div class="location">
 		<strong>你现在所在的位置是:</strong> <span>用户管理页面</span>
 	</div>
-	<form action="/SuperMarket/action/UserManage" method="get"
+	<form action="/SuperMarket/action/InitUser" method="get" id="userList"
 		name="dividePage">
 		<div class="search">
-			<span>用户名：</span> <input type="text" placeholder="请输入用户名" /> <input
-				type="button" value="查询" /> <a href="userAdd.html">添加用户</a>
+			<span>用户名：</span> 
+			<input type="text" placeholder="请输入用户名" /> 
+			<input type="submit" value="查询" /> 
+			<a href="/SuperMarket/action/AddUser">添加用户</a>
 		</div>
 		<!--用户-->
 		<table class="providerTable" cellpadding="0" cellspacing="0">
 			<tr class="firstTr">
 				<th width="10%">用户编码</th>
 				<th width="20%">用户名称</th>
-				<th width="10%">状态</th>
-				<th width="10%">创建时间</th>
-				<th width="20%">用户类型</th>
+				<th width="10%">性别</th>
+				<th width="10%">年龄</th>
+				<th width="10%">电话</th>
+				<th width="10%">用户类型</th>
 				<th width="30%">操作</th>
 			</tr>
 			<c:forEach var="user" items="${requestScope.users }">
 				<tr>
 					<td>${user.id }</td>
-					<td>${user.username }</td>
-					<td>${user.status }</td>
-					<td>${user.createTime }</td>
-					<td>${user.role }</td>
-					<td><a href="userView.html"><img
-							src="/SuperMarket/jsp/img/read.png" alt="查看" title="查看" /></a> <a
-						href="userUpdate.html"><img
-							src="/SuperMarket/jsp/img/xiugai.png" alt="修改" title="修改" /></a> <a
-						href="#" class="removeUser"><img
-							src="/SuperMarket/jsp/img/schu.png" alt="删除" title="删除" /></a></td>
+					<td>${user.name }</td>
+					<td>${user.sex }</td>
+					<td>${user.age }</td>
+					<td>${user.mobile }</td>
+					<td>${user.rname }</td>
+					<td><a href="#" class="checkUserA"><img
+							src="/SuperMarket/jsp/img/read.png" alt="查看" title="查看" /></a> 
+						<a href="#" class="updateUserA"><img
+							src="/SuperMarket/jsp/img/xiugai.png" alt="修改" title="修改" /></a> 
+						<a href="#" class="removeUser"><img
+							src="/SuperMarket/jsp/img/schu.png" alt="删除" title="删除" /></a>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
-		<%@include file="common/page.jsp" %>
+		<%@include file="common/page.jsp"%>
 	</form>
 </div>
 <!--点击删除按钮后弹出的页面-->
@@ -53,5 +58,5 @@
 </div>
 
 <script src="/SuperMarket/jsp/js/jquery.js"></script>
-<script src="/SuperMarket/jsp/js/js.js"></script>
 <script src="/SuperMarket/jsp/js/time.js"></script>
+<script src="/SuperMarket/jsp/js/userList.js"></script>

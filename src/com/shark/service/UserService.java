@@ -20,8 +20,8 @@ public class UserService {
 	 * @return 成功返回插入的user对象 失败返回null
 	 */
 	public User addUser (User user){
-		String sql = "{?=call addUser1 (?, ?, ?, ?, ?, ?, ?)}";
-		gs = new UserSql(sql, user.getName(), user.getPwd(), user.getSex(), user.getAge(), user.getMobile(), user.getAddress(), user.getRid());
+		String sql = "{?=call addUser (?, ?, ?, ?, ?, ?, ?)}";
+		gs = new UserSql(sql, user.getName(), user.getPwd(), user.getSex(), new java.sql.Date(user.getBirth().getTime()), user.getMobile(), user.getAddress(), user.getRid());
 		User u1 = ud.addUser(gs);
 		user.setId(u1.getId());
 		return user;
@@ -32,7 +32,11 @@ public class UserService {
 	*/
 	public List<User> getUserList (){
 		String sql = " select * from mk_user ";
-		return ud.getUserList(new UserSql (sql));
+		List<User> users = ud.getUserList(new UserSql (sql));
+		for (User user: users){
+			user.setRname(CommonUtil.getRoleName(user.getRid()));
+		}
+		return users;
 	}
 	/**
 	 * 分页查询时使用的用户集合获取
@@ -48,7 +52,11 @@ public class UserService {
 		String sql = "select * from "+
 				" (select rownum rn, t1.* from (select * from mk_user) t1) " +
 				" where rn > ? and rn <= ? ";
-		return ud.getUserList(new UserSql(sql, (pageIndex-1)*pageSize, pageIndex*pageSize));
+		List<User> users = ud.getUserList(new UserSql (sql, (pageIndex-1)*pageSize, pageIndex*pageSize));
+		for (User user: users){
+			user.setRname(CommonUtil.getRoleName(user.getRid()));
+		}
+		return users;
 	}
 	/**
 	 * 获取总的用户个数
@@ -95,5 +103,40 @@ public class UserService {
 		String sql = "select * from mk_user where username = ?";
 		gs = new UserSql(sql, name);
 		return ud.getUser(gs);
+	}
+	/**
+	 * 根据条件来查询，获得用户列表
+	 * @param pager 分页信息
+	 * @param user 包含条件字段的用户实体
+	 * @return 用户列表
+	 */
+	public List<User> getUserList (Pager pager, User user){
+		int pageIndex, pageSize;
+		pageIndex = pager.getPageIndex();
+		pageSize = pager.getPageSize();
+		pager.setTotalCount(getUserCount());
+		String sql = "select * from "+
+				" (select rownum rn, t1.* from (select * from mk_user where 1=1"
+				+ "" +
+				" ) t1)  where rn > ? and rn <= ? ";
+		//条件字符串拼接
+		List<User> users = ud.getUserList(new UserSql (sql, (pageIndex-1)*pageSize, pageIndex*pageSize));
+		for (User user1: users){
+			user1.setRname(CommonUtil.getRoleName(user.getRid()));
+		}
+		return users;
+	}
+	
+	/**
+	 * 更新用户，根据传入的User进行更新
+	 * @return 成功返回true 失败返回FALSE
+	 */
+	public boolean updateUser(User user){
+		String sql = 
+				" update mk_user set username=?, password=?, sex=?, birth=?, mobile=?, address=?, roleid=? where id = ? ";
+		if (-1 != ud.updateUser(new UserSql(sql, user.getName(), user.getPwd(), user.getSex(),
+				new java.sql.Date(user.getBirth().getTime()), user.getMobile(), user.getAddress(), user.getRid(), user.getId() )))
+			return true;
+		return false;
 	}
 }
