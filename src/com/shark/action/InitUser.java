@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.shark.entity.Pager;
 import com.shark.entity.User;
 import com.shark.service.UserService;
+import com.shark.util.CommonUtil;
 
 @WebServlet(description = "用户管理", urlPatterns = { "/action/InitUser" })
 public class InitUser extends HttpServlet {
@@ -45,10 +46,14 @@ public class InitUser extends HttpServlet {
 		}
 		List<User> users ;
 		//无条件情况下，获取用户列表
-		users = us.getUserList(pager);
-		//有条件情况下，获取用户列表
-		
-
+		String uname =request.getParameter("c_userName");
+		if ( CommonUtil.isEmpty(uname) ){
+			users = us.getUserList(pager);
+		}else{		//有条件情况下，获取用户列表
+			condition.setName(uname);
+			users = us.getUserList(pager, condition);
+			request.setAttribute("condition", condition);
+		}
 		request.setAttribute("users", users);
 		request.setAttribute("pager", pager);
 		request.getRequestDispatcher("/jsp/main/mainPart.jsp").forward(request, response);

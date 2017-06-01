@@ -14,4 +14,7 @@ public class RoleService {
 	public List<Role> getRoleList (){
 		return rd.getRoleList();
 	}
+	public String getRoleName(int id) {
+		return rd.getRoleName(id);
+	}
 }

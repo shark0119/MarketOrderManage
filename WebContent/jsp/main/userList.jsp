@@ -9,11 +9,10 @@
 		name="dividePage">
 		<div class="search">
 			<span>用户名：</span> 
-			<input type="text" placeholder="请输入用户名" /> 
+			<input type="text" placeholder="请输入用户名" name="c_userName" value="${condition.name }"/> 
 			<input type="submit" value="查询" /> 
 			<a href="/SuperMarket/action/AddUser">添加用户</a>
 		</div>
-		<!--用户-->
 		<table class="providerTable" cellpadding="0" cellspacing="0">
 			<tr class="firstTr">
 				<th width="10%">用户编码</th>

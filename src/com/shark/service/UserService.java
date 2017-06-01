@@ -83,7 +83,9 @@ public class UserService {
 	public User getUser (int id){
 		String sql = "select * from mk_user where id = ?";
 		gs = new UserSql(sql, id);
-		return ud.getUser(gs);
+		User user = ud.getUser(gs);
+		user.setRname(CommonUtil.getRoleService().getRoleName(user.getRid()));
+		return user;
 	}
 	/**
 	 * 用户登录验证
@@ -107,22 +109,22 @@ public class UserService {
 	/**
 	 * 根据条件来查询，获得用户列表
 	 * @param pager 分页信息
-	 * @param user 包含条件字段的用户实体
+	 * @param condition 包含条件字段的用户实体
 	 * @return 用户列表
 	 */
-	public List<User> getUserList (Pager pager, User user){
+	public List<User> getUserList (Pager pager, User condition){
 		int pageIndex, pageSize;
 		pageIndex = pager.getPageIndex();
 		pageSize = pager.getPageSize();
-		pager.setTotalCount(getUserCount());
+		pager.setTotalCount(CommonUtil.getCount(new UserSql(" select count(1) from mk_user where 1=1"+ "and username like '%"+condition.getName()+"%'" )));
 		String sql = "select * from "+
 				" (select rownum rn, t1.* from (select * from mk_user where 1=1"
-				+ "" +
+				+ "and username like '%"+condition.getName()+"%'" +
 				" ) t1)  where rn > ? and rn <= ? ";
 		//条件字符串拼接
 		List<User> users = ud.getUserList(new UserSql (sql, (pageIndex-1)*pageSize, pageIndex*pageSize));
-		for (User user1: users){
-			user1.setRname(CommonUtil.getRoleName(user.getRid()));
+		for (User user: users){
+			user.setRname(CommonUtil.getRoleName(user.getRid()));
 		}
 		return users;
 	}

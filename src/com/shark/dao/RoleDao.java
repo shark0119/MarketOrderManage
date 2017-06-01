@@ -10,4 +10,6 @@ public interface RoleDao {
 	 * @return 返回角色列表，数据库错误返回null, 查询成功返回集合
 	 */
 	List<Role> getRoleList();
+	
+	String getRoleName (int id);
 }

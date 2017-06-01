@@ -34,4 +34,22 @@ public class RoleDaoImpl extends BaseDao implements RoleDao {
 		return roleList;
 	}
 
+	@Override
+	public String getRoleName(int id) {
+		if (!this.getConnection())
+			return null;
+		String sql = " select rolename from mk_role where roleid= "+ id +" ";
+		ResultSet rset = this.executeQuery(sql);
+		try {
+			if (rset.next()){
+				return rset.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();	
+		} finally {
+			this.closeAll();
+		}	
+		return null;
+	}
+
 }
