@@ -28,10 +28,9 @@ public interface UserDao {
 	/**
 	 * 添加用户
 	 * 以存储过程addUser进行数据插入，并获取数据库自动生成的值
-	 * procedure addUser 
-	 * (username, password, status, roleid, id-out, createtime-out)
+	 *function addUser 
+	 *(name, pwd, sex, birth, mobile, add, rid)return id
 	 * @return 插入成功返回用户，否则返回null,包含数据库自动生成的值，并非全部信息
 	 */
 	User addUser (GenerateSql gs);
-	
 }

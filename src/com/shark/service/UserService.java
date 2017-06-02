@@ -34,7 +34,7 @@ public class UserService {
 		String sql = " select * from mk_user ";
 		List<User> users = ud.getUserList(new UserSql (sql));
 		for (User user: users){
-			user.setRname(CommonUtil.getRoleName(user.getRid()));
+			user.setRname(CommonUtil.getRoleService().getRoleName(user.getRid()));
 		}
 		return users;
 	}
@@ -54,7 +54,7 @@ public class UserService {
 				" where rn > ? and rn <= ? ";
 		List<User> users = ud.getUserList(new UserSql (sql, (pageIndex-1)*pageSize, pageIndex*pageSize));
 		for (User user: users){
-			user.setRname(CommonUtil.getRoleName(user.getRid()));
+			user.setRname(CommonUtil.getRoleService().getRoleName(user.getRid()));
 		}
 		return users;
 	}
@@ -124,7 +124,7 @@ public class UserService {
 		//Ìõ¼þ×Ö·û´®Æ´½Ó
 		List<User> users = ud.getUserList(new UserSql (sql, (pageIndex-1)*pageSize, pageIndex*pageSize));
 		for (User user: users){
-			user.setRname(CommonUtil.getRoleName(user.getRid()));
+			user.setRname(CommonUtil.getRoleService().getRoleName(user.getRid()));
 		}
 		return users;
 	}

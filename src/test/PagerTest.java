@@ -49,4 +49,9 @@ public class PagerTest {
 		pager.setPageSize(4);
 		assertEquals(4, pager.getTotalPage());
 	}
+	@Test
+	public void test1 (){
+		Integer i = 1;
+		System.out.println(i);
+	}
 }

@@ -1,10 +1,9 @@
 package com.shark.sql;
 
-public class UserSql implements GenerateSql{
+public class CommonSql  implements GenerateSql{
 	private String sql;
 	private Object [] para;
-	public UserSql(String sql, Object...para) {
-		super();
+	public CommonSql(String sql, Object...para) {
 		this.sql = sql;
 		this.para = para;
 	}

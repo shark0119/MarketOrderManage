@@ -11,6 +11,11 @@
   <filter-mapping>
     <filter-name>EncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
+    <url-pattern>/jsp/main/*</url-pattern>
+    <url-pattern>/jsp/main/provider/*</url-pattern>
+    <url-pattern>/jsp/main/common/*</url-pattern>
+    <url-pattern>/action/*</url-pattern>
+    <url-pattern>/pro/*</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>CommonLoginFilter</filter-name>
@@ -19,6 +24,9 @@
   <filter-mapping>
     <filter-name>CommonLoginFilter</filter-name>
     <url-pattern>/jsp/main/*</url-pattern>
+    <url-pattern>/jsp/main/provider/*</url-pattern>
+    <url-pattern>/jsp/main/common/*</url-pattern>
     <url-pattern>/action/*</url-pattern>
+    <url-pattern>/pro/*</url-pattern>
   </filter-mapping>
 </web-app>

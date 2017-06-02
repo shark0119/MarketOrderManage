@@ -34,7 +34,7 @@
 			<nav>
 				<ul class="list">
 					<li><a href="billList.html">账单管理</a></li>
-					<li><a href="providerList.html">供应商管理</a></li>
+					<li><a href="/SuperMarket/pro/InitPro">供应商管理</a></li>
 					<li><a href="/SuperMarket/action/InitUser">用户管理</a></li>
 					<li><a href="/SuperMarket/action/AlterPwd">密码修改</a></li>
 					<li><a href="login.jsp">退出系统</a></li>

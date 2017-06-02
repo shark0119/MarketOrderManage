@@ -10,7 +10,7 @@ public class UtilTest {
 
 	@Test
 	public void testGetRoleName() {
-		System.out.println(CommonUtil.getRoleName(1));
+		System.out.println(CommonUtil.getRoleService().getRoleName(1));
 	}
 	@Test
 	public void testGetTotalCount (){
