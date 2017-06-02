@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="/SuperMarket/jsp/css/public.css" />
 	<link rel="stylesheet" href="/SuperMarket/jsp/css/style.css" />
 	<script src="/SuperMarket/jsp/js/time.js"></script>
+	<script src="/SuperMarket/jsp/js/jquery.js"></script>
 </head>
 <body>
 	<!--头部-->
@@ -17,7 +18,7 @@
 			<p>
 				<span>下午好！</span><span style="color: #fff21b"> ${sessionScope.username }</span> , 欢迎你！
 			</p>
-			<a href="login.jsp">退出</a>
+			<a href="/SuperMarket/ExitSystem">退出</a>
 		</div>
 	</header>
 	<!--时间-->
@@ -33,11 +34,11 @@
 			</h2>
 			<nav>
 				<ul class="list">
-					<li><a href="billList.html">账单管理</a></li>
+					<li><a href="/SuperMarket/order/InitOrder">账单管理</a></li>
 					<li><a href="/SuperMarket/pro/InitPro">供应商管理</a></li>
 					<li><a href="/SuperMarket/action/InitUser">用户管理</a></li>
 					<li><a href="/SuperMarket/action/AlterPwd">密码修改</a></li>
-					<li><a href="login.jsp">退出系统</a></li>
+					<li><a href="/SuperMarket/ExitSystem">退出系统</a></li>
 				</ul>
 			</nav>
 		</div>

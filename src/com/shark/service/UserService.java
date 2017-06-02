@@ -6,6 +6,7 @@ import com.shark.dao.UserDao;
 import com.shark.dao.impl.UserDaoImpl;
 import com.shark.entity.Pager;
 import com.shark.entity.User;
+import com.shark.sql.CommonSql;
 import com.shark.sql.GenerateSql;
 import com.shark.sql.UserSql;
 import com.shark.util.CommonUtil;
@@ -140,5 +141,14 @@ public class UserService {
 				new java.sql.Date(user.getBirth().getTime()), user.getMobile(), user.getAddress(), user.getRid(), user.getId() )))
 			return true;
 		return false;
+	}
+	/**
+	 * 以用户名来判断数据库中是否存在该用户
+	 * @param name 用户名
+	 * @return 存在返回true 不存在返回false
+	 */
+	public boolean exists(String name) {
+		String sql = "select * from mk_user where name=?";
+		return null != ud.getUser(new CommonSql(sql, name));
 	}
 }

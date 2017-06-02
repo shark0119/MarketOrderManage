@@ -1,6 +1,10 @@
 eclipse.preferences.version=1
+encoding//WebContent/jsp/css/public.css=UTF-8
+encoding//WebContent/jsp/css/style.css=UTF-8
 encoding//WebContent/jsp/login.jsp=UTF-8
 encoding//WebContent/jsp/main/UserAdd.jsp=UTF-8
 encoding//WebContent/jsp/main/common/page.jsp=UTF-8
+encoding//WebContent/jsp/main/order/OrderDetail.jsp=UTF-8
+encoding//WebContent/jsp/main/order/checkOrder.jsp=UTF-8
 encoding//WebContent/jsp/main/provider/checkPro.jsp=UTF-8
 encoding//WebContent/jsp/main/welcome.jsp=UTF-8

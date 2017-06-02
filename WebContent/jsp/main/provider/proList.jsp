@@ -9,8 +9,11 @@
 	<form action="/SuperMarket/pro/InitPro" method="get" id="proList"
 		name="dividePage">
 		<div class="search">
-			<span>供应商名称：</span> <input type="text" value="${condition.name }" name="s_proName" placeholder="请输入供应商的名称" /> <input
-				type="submit" value="查询" /> <a href="/SuperMarket/pro/AddPro">添加供应商</a>
+			<span>供应商名称：</span> 
+			<input type="text" value="${condition.name }" id="providerName" name="s_proName" placeholder="请输入供应商的名称" /> 
+			<input type="button" value="查询" onclick = "search()"/> 
+			
+			<a href="javascript:add('/SuperMarket/pro/AddPro')">添加供应商</a>
 		</div>
 		<!--供应商操作表格-->
 		<table class="providerTable" cellpadding="0" cellspacing="0">
@@ -57,3 +60,4 @@
 	</div>
 </div>
 <script src="/SuperMarket/jsp/js/provider.js"></script>
+<script src="/SuperMarket/jsp/js/authority.js"></script>

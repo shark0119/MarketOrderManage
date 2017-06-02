@@ -6,6 +6,8 @@ import com.shark.dao.OrderDao;
 import com.shark.dao.impl.OrderDaoImpl;
 import com.shark.entity.Order;
 import com.shark.entity.Pager;
+import com.shark.entity.Product;
+import com.shark.entity.Provider;
 import com.shark.sql.CommonSql;
 import com.shark.util.CommonUtil;
 
@@ -21,9 +23,8 @@ public class OrderService {
 	public boolean addOrder (Order order){
 		String sql = " insert into mk_order (id, time, ispay, money, counts, order_desc, c_pid)"
 				+ " values (seq_order.nextval, sysdate,? ,? ,? ,? ,?)";
-		od.updateOrder(new CommonSql(sql, order.getIspay(), order.getMoney(), order.getCount(),
+		return 1 == od.updateOrder(new CommonSql(sql, order.getIspay(), order.getMoney(), order.getCount(),
 				order.getDesc(), order.getC_pid()));
-		return false;
 	}
 	
 	/**
@@ -53,7 +54,9 @@ public class OrderService {
 	 */
 	public Order getOrder (int id){
 		String sql = "select * from mk_order where id = ? ";
-		return od.getOrder(new CommonSql(sql, id));
+		Order order = od.getOrder(new CommonSql(sql, id));
+		order.setProductName(CommonUtil.getProService().getProviderByC_Pid(order.getC_pid()).getName());
+		return order;
 	}
 	/**
 	 * 无条件分页查询
@@ -84,14 +87,25 @@ public class OrderService {
 			sql += " and provider_id = "+providerId;
 		}
 		sql +=" ) ";
-		if (condition != null &&condition.getIspay() != null){
+		if (condition != null && condition.getIspay() != null){
 			sql += " and ispay="+condition.getIspay();
 		}
 		sql +=" )t)t1 where rn>? and rn<=? ";
 		int begin = pager.getPageSize()*(pager.getPageIndex()-1);
 		int end = pager.getPageSize()* pager.getPageIndex();
-		System.out.println(sql + " \nbegin :"+ begin +" end:"+end);
-		return od.getOrderList(new CommonSql(sql, begin, end));
+		
+		System.out.println("分页查询语句: "+sql + " \n\tbegin :"+ begin +" end:"+end);
+		
+		List <Order> oList = od.getOrderList(new CommonSql(sql, begin, end));
+		for (Order order: oList){
+			Product p1 = CommonUtil.getProductService().getProductByC_Pid(order.getC_pid());
+			Provider p2 = CommonUtil.getProService().getProviderByC_Pid(order.getC_pid());
+			if (p2 != null)
+				order.setProviderName(p2.getName());
+			if (p1 != null)
+				order.setProductName(p1.getName());
+		}
+		return oList;
 	}
 	/**
 	 * 无条件查询订单总数
@@ -118,6 +132,7 @@ public class OrderService {
 		sql +=  ")";
 		if (condition != null && condition.getIspay() != null && condition.getIspay() != -1)
 			sql += " and ispay= "+condition.getIspay();
+		System.out.println("\n设置pager语句:" + sql);
 		return CommonUtil.getCount(new CommonSql(sql));
 	}
 	

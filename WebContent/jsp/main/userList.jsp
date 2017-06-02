@@ -10,8 +10,8 @@
 		<div class="search">
 			<span>用户名：</span> 
 			<input type="text" placeholder="请输入用户名" name="c_userName" value="${condition.name }"/> 
-			<input type="submit" value="查询" /> 
-			<a href="/SuperMarket/action/AddUser">添加用户</a>
+			<input type="button" onclick="search()" value="查询" /> 
+			<a href="javascript:add('/SuperMarket/action/AddUser')">添加用户</a>
 		</div>
 		<table class="providerTable" cellpadding="0" cellspacing="0">
 			<tr class="firstTr">
@@ -56,6 +56,5 @@
 	</div>
 </div>
 
-<script src="/SuperMarket/jsp/js/jquery.js"></script>
-<script src="/SuperMarket/jsp/js/time.js"></script>
 <script src="/SuperMarket/jsp/js/userList.js"></script>
+<script src="/SuperMarket/jsp/js/authority.js"></script>

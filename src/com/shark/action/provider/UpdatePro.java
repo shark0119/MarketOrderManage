@@ -21,6 +21,7 @@ public class UpdatePro extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!CommonUtil.isEmpty(request.getParameter("operation")) && request.getParameter("operation").equals("update")){//来源2
 			Provider p = new Provider();
+			p.setId(Integer.parseInt(request.getParameter("id")));
 			p.setName(request.getParameter("providerName"));
 			p.setContact(request.getParameter("people"));
 			p.setPhone(request.getParameter("phone"));
@@ -28,7 +29,7 @@ public class UpdatePro extends HttpServlet {
 			p.setFax(request.getParameter("fax"));
 			p.setDesc(request.getParameter("describe"));
 			System.out.println("待插入的记录:"+p);
-			if (!CommonUtil.getProService().addPro(p)){
+			if (!CommonUtil.getProService().updatePro(p)){
 				//插入成功
 				response.getWriter().write("<script>alert('添加失败，数据库错误，请稍后再试');location.href='/SuperMarket/jsp/main/mainPart.jsp';</script>");
 				return;

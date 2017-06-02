@@ -18,7 +18,7 @@ li{
     list-style: none;
 }
 
-/*公共样式，头部*/
+/*鍏叡鏍峰紡锛屽ご閮�*/
 .publicHeader{
     height: 48px;
     line-height: 48px;
@@ -66,7 +66,7 @@ li{
     font-weight: bold;
     background: linear-gradient(to bottom,#70b21c,#5c9613,#47740e,#3b6209,#2b4906);
 }
-/*时间*/
+/*鏃堕棿*/
 .publicTime{
     height: 28px;
     line-height: 28px;
@@ -86,14 +86,14 @@ li{
     color: #626367;
 }
 
-/*公共部分主体内容*/
+/*鍏叡閮ㄥ垎涓讳綋鍐呭*/
 .publicMian{
     border-top: 1px solid #c2ccd5;
-    display: flex;  /*变为弹性盒模型*/
+    display: flex;  /*鍙樹负寮规�х洅妯″瀷*/
     display: -webkit-flex;
     background: #fff;
 }
-/*左边*/
+/*宸﹁竟*/
 .left{
     width: 168px;
     background: url("../img/leftBg.png") 0 0 repeat-y;
@@ -167,11 +167,11 @@ li{
 }
 
 
-/*右边*/
+/*鍙宠竟*/
 .right{
     width: 85%;
 }
-/*右边所在位置栏*/
+/*鍙宠竟鎵�鍦ㄤ綅缃爮*/
 .location{
     height: 30px;
     line-height: 30px;
@@ -190,7 +190,7 @@ li{
     color: #2179a9;
     font-weight:  bold;
 }
-/*搜索信息栏*/
+/*鎼滅储淇℃伅鏍�*/
 .search{
     height:50px;
     line-height:50px;
@@ -250,20 +250,10 @@ li{
     outline: none;
 }
 
-/*底部*/
+/*搴曢儴*/
 .footer{
     width: 100%;
     line-height: 40px;
     text-align: center;
     color: #fff;
 }
-
-
-
-
-
-
-
-
-
-

@@ -1,24 +1,6 @@
 /**
  * 
  */
-$(document).ready(function() {
-	$("#GO").click(function() {
-		var $hidden = $(":input:hidden");
-		var page = $("#page").val();
-		if (page == null || page === "") {
-			alert("页数不能为空");
-		} else if (page.match(/^\d+$/)) {
-			var i = $("#totalPage").text();
-			if (page > i) {
-				alert("输入无效，必须小于最大页数");
-				$("#page").focus();
-			} else {
-				jump(page, $hidden[1].value);
-			}
-		} else
-			alert("页数必须为整数");
-	});
-});
 
 // 用户管理页面上点击删除按钮弹出删除框(userList.html)
 var userid;
@@ -26,15 +8,17 @@ var count = 0;
 $(function() {
 	$('.removeUser').click(function() {
 		userid = $(this).parent().parent().children().first().html();
-		$('.zhezhao').css('display', 'block');
-		$('#removeUse').fadeIn();
+		isAvail(function() {
+			$('.zhezhao').css('display', 'block');
+			$('#removeUse').fadeIn();
+		});
 	});
 });
 
 $(function() {
 	$('#no').click(function() {
 		$('.zhezhao').css('display', 'none');
-		$('#removeUse').fadeOut();
+		$('#removeUse').hide();
 	});
 });
 $(function() {
@@ -43,7 +27,7 @@ $(function() {
 		if (count % 2 === 0)
 			return;
 		$('.zhezhao').css('display', 'none');
-		$('#removeUse').fadeOut();
+		$('#removeUse').hide();
 		$.ajax({
 			type : "POST",
 			url : "/SuperMarket/action/DeleteUser",
@@ -62,9 +46,14 @@ $(function() {
 
 $(".updateUserA").click(function() {
 	var id = $(this).parent().parent().children().first().html();
-	location.href = "/SuperMarket/action/UpdateUser?id=" + id;
+	isAvail(function() {
+		location.href = "/SuperMarket/action/UpdateUser?id=" + id;
+	});
 });
 $(".checkUserA").click(function() {
 	var id = $(this).parent().parent().children().first().html();
 	location.href = "/SuperMarket/action/CheckUser?id=" + id;
 });
+function search() {
+	document.forms[0].submit();
+}

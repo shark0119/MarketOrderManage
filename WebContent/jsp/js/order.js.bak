@@ -1,0 +1,108 @@
+/**
+ * proList.jsp
+ */
+var proId;
+var count = 0;
+$(".alterOrdA").click(function() {
+	var id = $(this).parent().parent().children().first().html();
+	location.href = "/SuperMarket/order/UpdateOrder?id=" + id;
+});
+$(".checkOrdA").click(function() {
+	var id = $(this).parent().parent().children().first().html();
+	location.href = "/SuperMarket/order/CheckOrder?id=" + id;
+});
+$('.removeOrdA').click(function() {
+	proId = $(this).parent().parent().children().first().html();
+	$('.zhezhao').css('display', 'block');
+	$('#removeUse').fadeIn();
+});
+$(function() {
+	$('#no').click(function() {
+		$('.zhezhao').css('display', 'none');
+		$('#removeUse').hide();
+	});
+});
+$(function() {
+	$('#yes').click(function() {
+		count++;
+		if (count % 2 === 0)
+			return;
+		$('.zhezhao').css('display', 'none');
+		$('#removeUse').hide();
+		$.ajax({
+			type : "POST",
+			url : "/SuperMarket/order/RemoveOrder",
+			data : "id=" + proId,
+			success : function(data) {
+				var dataobj = JSON.parse(data);
+				if (dataobj.success) {
+					$("#orderList").submit();
+				} else {
+					alert(dataobj.msg);
+				}
+			}
+		});
+	});
+});
+
+/**
+ * proDetail.jsp
+ */
+function check() {
+	var form = document.orderDetail;
+	with (form) {
+		submit();
+		return true;
+	}
+}
+function isEmpty(str) {
+	if (str == null || str == "")
+		return true;
+	return false
+}
+var d;
+function onSelectChange (){
+	var options=$("#proviId option:selected");
+	$("#productId").attr("disabled","disabled");
+	$("#productId").empty();
+	if (options.val() != "")
+	{
+		$("#productId").removeAttr("disabled");
+		$.ajax({
+			type : "POST",
+			url : "/SuperMarket/order/InitProductByAjaxId",
+			data : "id=" + options.val(),
+			success : function(data) {
+				d = eval (data);
+				if (d.length === 0){
+					$("#productId").append("<option value='-1'>该公司暂不提供产品</option>");
+					return ;
+				}
+				for (var i=0; i<d.length; i++){
+					//alert (d[i]);
+					d[i].__proto__.toString = function (){
+						return this.id + this.name +this.unit;
+					}
+					console.log ("ajax receive:");
+					console.log (d[i]);
+					$("#productId").append("<option value='"+d[i].id+"'>"+d[i].name+"</option>"); 
+					
+				}
+				$("#productUnit").html(d[0].unit) ;
+			}
+		});
+	}
+}
+
+function onProChange(){
+	var options=$("#productId option:selected");
+	var id = options.val();
+	for (var i=0; i<d.length; i++){
+		if (d[i].id = id){
+			$("#productUnit").html(d[i].unit) ;
+			break;
+		}
+	}
+}
+
+

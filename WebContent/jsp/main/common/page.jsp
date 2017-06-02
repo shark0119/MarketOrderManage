@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 共${pager.totalCount }条记录&nbsp;&nbsp; ${pager.pageIndex }/
-<span id="totalPage">${pager.totalPage }</span>页
+<span id="totalPage">${pager.totalPage }</span>
+页
 <c:choose>
 	<c:when test="${pager.pageIndex == 1 }">首页&nbsp;	上一页</c:when>
 	<c:otherwise>
@@ -25,13 +26,29 @@
 <input type="hidden" value="${pager.pageSize }" name="pageSize" />
 
 <script type="text/javascript">
-
-function jump(p, s) {
-	var form = document.dividePage;
-	with (form) {
-		pageIndex.value = p;
-		pageSize.value = s;
-		submit();
+	function jump(p, s) {
+		var form = document.dividePage;
+		with (form) {
+			pageIndex.value = p;
+			pageSize.value = s;
+			submit();
+		}
 	}
-}
+
+	$("#GO").click(function() {
+		var $hidden = $(":input:hidden");
+		var page = $("#page").val();
+		if (page == null || page === "") {
+			alert("页数不能为空");
+		} else if (page.match(/^\d+$/)) {
+			var i = $("#totalPage").text();
+			if (page > i) {
+				alert("输入无效，必须小于最大页数");
+				$("#page").focus();
+			} else {
+				jump(page, $hidden[1].value);
+			}
+		} else
+			alert("页数必须为整数");
+	});
 </script>

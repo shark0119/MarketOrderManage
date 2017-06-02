@@ -44,7 +44,7 @@ public class Pager {
 	}
 
 	public void setTotalCount(int totalCount) {
-		if (totalCount <1)
+		if (totalCount <0)
 			return;
 		this.totalCount = totalCount;
 		totalPage = totalCount%pageSize == 0?totalCount/pageSize :totalCount/pageSize+1;

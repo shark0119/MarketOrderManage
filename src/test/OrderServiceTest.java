@@ -1,10 +1,16 @@
 package test;
 
+import java.util.List;
+
 import org.junit.Test;
 
+import com.alibaba.fastjson.JSON;
 import com.shark.entity.Order;
 import com.shark.entity.Pager;
+import com.shark.entity.Product;
 import com.shark.service.OrderService;
+import com.shark.service.ProductService;
+import com.shark.util.CommonUtil;
 
 public class OrderServiceTest {
 	@Test
@@ -31,5 +37,14 @@ public class OrderServiceTest {
 	public void testExit (){
 		OrderService os = new OrderService();
 		System.out.println(os.existNotDone(2));
+	}
+	
+	@Test
+	public void transJson (){
+		ProductService ps = CommonUtil.getProductService();
+		List <Product> iList = ps.getProductList();
+		System.out.println(iList);
+		String str  = JSON.toJSON(iList).toString();
+		System.out.println( str );
 	}
 }

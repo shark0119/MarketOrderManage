@@ -23,10 +23,10 @@ public class InitUser extends HttpServlet {
 	public InitUser() {
 		super();
 		us = new UserService();
-		condition = new User();
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		condition = new User();
 		//动态加载userList.jsp
 		request.getSession().setAttribute("contentPageName", "userList.jsp");
 		//初始化pager
@@ -50,6 +50,7 @@ public class InitUser extends HttpServlet {
 		if ( CommonUtil.isEmpty(uname) ){
 			users = us.getUserList(pager);
 		}else{		//有条件情况下，获取用户列表
+			uname = new String(uname.getBytes("ISO-8859-1"), "UTF-8");
 			condition.setName(uname);
 			users = us.getUserList(pager, condition);
 			request.setAttribute("condition", condition);

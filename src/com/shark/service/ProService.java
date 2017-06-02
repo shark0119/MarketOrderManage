@@ -65,6 +65,11 @@ public class ProService {
 	public List<Provider> getProList (Pager page){
 		return getProList(page, null);
 	}
+	
+	public List<Provider> getProList (){
+		String sql = "select * from mk_provider where status = 1";
+		return pd.getProList(new CommonSql(sql));
+	}
 	/**
 	 * 
 	 * 条件普通分页
@@ -115,5 +120,20 @@ public class ProService {
 	public Provider getProvider(int id) {
 		String sql = "select * from mk_provider where id= ?";
 		return pd.getProvider(new CommonSql(sql, id));
+	}
+	
+	public Provider getProviderByC_Pid (int c_pid) {
+		String sql = "select * from mk_provider pv, c_provide cp "
+				+ "where pv.id = cp.provider_id and cp.id =?";
+		return pd.getProvider(new CommonSql(sql, c_pid));
+	}
+	/**
+	 * 以供应商名来判断数据库中是否存在该供应商
+	 * @param name 供应商名
+	 * @return 存在返回true 不存在返回false
+	 */
+	public boolean exists(String name) {
+		String sql = "select * from mk_provider where name=?";
+		return null != pd.getProvider(new CommonSql(sql, name));
 	}
 }

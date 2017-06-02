@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import com.shark.dao.BaseDao;
 import com.shark.service.OrderService;
 import com.shark.service.ProService;
+import com.shark.service.ProductService;
 import com.shark.service.RoleService;
 import com.shark.service.UserService;
 import com.shark.sql.GenerateSql;
@@ -17,13 +18,16 @@ public class CommonUtil {
 	private static RoleService rs;
 	private static ProService ps;
 	private static OrderService os;
+	private static ProductService ps1;
 	static{
 		bd = new BaseDao ();
 		us = new UserService();
 		rs = new RoleService();
 		ps = new ProService();
 		os = new OrderService();
+		ps1 = new ProductService();
 	}
+
 	private CommonUtil(){}
 	/**
 	 * 用于分页时查询总个数
@@ -66,6 +70,9 @@ public class CommonUtil {
 	
 	public static UserService getUserService (){
 		return us;
+	}	
+	public static ProductService getProductService() {
+		return ps1;
 	}
 	public static RoleService getRoleService (){
 		return rs;

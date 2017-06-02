@@ -16,5 +16,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jdbc"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jstl"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="F:/JavaExercise/jee/《超市账单管理系统》项目素材/jar/fastjson-1.2.6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -53,6 +53,7 @@ public class LoginVerify extends HttpServlet {
 			session.setAttribute("username", user.getName());
 			session.setAttribute("login", "true");
 			session.setAttribute("contentPageName", "welcome.jsp");
+			session.setMaxInactiveInterval(300);
 			ServletContext application = session.getServletContext();
 			@SuppressWarnings("unchecked")
 			Set<Integer> idSet = (Set<Integer>) application.getAttribute("logedId");

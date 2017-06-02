@@ -10,6 +10,8 @@
 		<form action="/SuperMarket/pro/${jumpPage }" method="post" id="proList"
 		name="proDetail">
 			<input type="hidden" name="operation" value="${operation }"/>
+			<input type="hidden" name="id" value="${u_provider.id }">
+			<input type="hidden" id="avail" value="">
 			<div>
 				<label for="providerName">供应商名称：</label> <input type="text"
 					name="providerName" id="providerName" value="${u_provider.name }"/> <span>*请输入供应商名称</span>
@@ -20,14 +22,15 @@
 			</div>
 			<div>
 				<label for="phone">联系电话：</label> <input type="text" name="phone"
-					id="phone" value="${u_provider.phone }"/> <span>*请输入联系电话</span>
+					id="phone" value="${u_provider.phone }"/> <span>*请输入联系电话，11位整数</span>
 			</div>
 			<div>
 				<label for="address">联系地址：</label> <input type="text" name="address"
 					id="address" value="${u_provider.address }"/> <span></span>
 			</div>
 			<div>
-				<label for="fax">传真：</label> <input type="text" name="fax" id="fax" value="${u_provider.fax }"/>
+				<label for="fax">传真：</label> 
+				<input type="text" name="fax" id="fax" value="${u_provider.fax }"/>
 				<span></span>
 			</div>
 			<div>

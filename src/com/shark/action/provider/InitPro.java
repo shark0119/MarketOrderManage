@@ -23,11 +23,11 @@ public class InitPro extends HttpServlet {
 
 	public InitPro() {
 		ps = CommonUtil.getProService();
-		condition = new Provider();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		condition = new Provider();
 		request.getSession().setAttribute("contentPageName", "./provider/proList.jsp");
 		// ≥ı ºªØpager
 		if (pager == null) {

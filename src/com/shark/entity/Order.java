@@ -6,8 +6,11 @@ public class Order {
 	private Integer id, ispay, money, count, c_pid;
 	private Date ctime;
 	private String desc;
+	private String productName, providerName;
+	
 	public Order() {
 	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -50,9 +53,22 @@ public class Order {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getProviderName() {
+		return providerName;
+	}
+	public void setProviderName(String providerName) {
+		this.providerName = providerName;
+	}
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", ispay=" + ispay + ", money=" + money + ", count=" + count + ", c_pid=" + c_pid
-				+ ", ctime=" + ctime + ", desc=" + desc + "]";
+				+ ", ctime=" + ctime + ", desc=" + desc + ", productName=" + productName + ", providerName="
+				+ providerName + "]";
 	}
 }
