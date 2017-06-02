@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script src="/SuperMarket/jsp/js/provider.js"></script>
+<script src="/SuperMarket/jsp/js/jquery.js"></script>
 <div class="right">
 	<div class="location">
 		<strong>你现在所在的位置是:</strong> <span>供应商管理页面</span>
@@ -47,7 +47,7 @@
 
 <!--点击删除按钮后弹出的页面-->
 <div class="zhezhao"></div>
-<div class="remove" id="removeProv">
+<div class="remove" id="removeUse">
 	<div class="removerChid">
 		<h2>提示</h2>
 		<div class="removeMain">
@@ -56,3 +56,4 @@
 		</div>
 	</div>
 </div>
+<script src="/SuperMarket/jsp/js/provider.js"></script>

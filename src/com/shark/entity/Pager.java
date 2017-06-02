@@ -48,6 +48,9 @@ public class Pager {
 			return;
 		this.totalCount = totalCount;
 		totalPage = totalCount%pageSize == 0?totalCount/pageSize :totalCount/pageSize+1;
+		if (pageIndex> totalPage){
+			pageIndex =1;
+		}
 	}
 
 	public int getTotalPage() {

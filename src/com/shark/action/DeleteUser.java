@@ -26,7 +26,8 @@ public class DeleteUser extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int uid = Integer.parseInt(request.getParameter("id"));
+		String id =request.getParameter("id");
+		int uid = Integer.parseInt(id);
 		@SuppressWarnings("unchecked")
 		Set<Integer> idSet = (HashSet<Integer>) request.getSession().getServletContext().getAttribute("logedId");
 		if (idSet.contains(uid)) {

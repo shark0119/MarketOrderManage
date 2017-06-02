@@ -73,6 +73,7 @@ public class ProService {
 	 * @return 供应商集合
 	 */
 	public List<Provider> getProList (Pager page, Provider condition){
+		page.setTotalCount(getTotal(condition));
 		String sql = "select * from (select t.*, rownum rn from (select * from mk_provider where status=1 ";
 		String cstr = " ";
 		if (condition != null){
@@ -82,7 +83,6 @@ public class ProService {
 		}
 		sql += cstr;
 		sql += " ) t) where rn>? and rn <=? ";
-		page.setTotalCount(getTotal(condition));
 		return pd.getProList(new CommonSql(sql, 
 								page.getPageSize() * (page.getPageIndex() - 1), 
 								page.getPageSize()*page.getPageIndex()));

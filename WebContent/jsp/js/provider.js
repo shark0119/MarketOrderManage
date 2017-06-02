@@ -1,4 +1,4 @@
-document.onload = function() {
+
 	/**
 	 * proList.jsp
 	 */
@@ -37,7 +37,7 @@ document.onload = function() {
 				success : function(data) {
 					var dataobj = JSON.parse(data);
 					if (dataobj.success) {
-						$("#userList").submit();
+						$("#proList").submit();
 					} else {
 						alert(dataobj.msg);
 					}
@@ -52,7 +52,6 @@ document.onload = function() {
 	function check() {
 		var form = document.proDetail;
 		with (form) {
-
 			submit();
 			return true;
 		}
@@ -63,4 +62,3 @@ document.onload = function() {
 		return false
 	}
 
-}

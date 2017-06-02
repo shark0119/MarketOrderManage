@@ -19,14 +19,6 @@ $(document).ready(function() {
 			alert("页数必须为整数");
 	});
 });
-function jump(p, s) {
-	var form = document.dividePage;
-	with (form) {
-		pageIndex.value = p;
-		pageSize.value = s;
-		submit();
-	}
-}
 
 // 用户管理页面上点击删除按钮弹出删除框(userList.html)
 var userid;

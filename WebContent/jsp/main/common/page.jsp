@@ -24,5 +24,14 @@
 <input type="hidden" value="${pager.pageIndex }" name="pageIndex" />
 <input type="hidden" value="${pager.pageSize }" name="pageSize" />
 
-<script src="/SuperMarket/jsp/js/jquery.js"></script>
-<script src="/SuperMarket/jsp/js/userList.js"></script>
+<script type="text/javascript">
+
+function jump(p, s) {
+	var form = document.dividePage;
+	with (form) {
+		pageIndex.value = p;
+		pageSize.value = s;
+		submit();
+	}
+}
+</script>
