@@ -107,4 +107,8 @@ public class UserServiceTest {
 		System.out.println(user);
 		System.out.println(us.updateUser(user));
 	}
+	@Test
+	public void testNameAvail (){
+		System.out.println(us.exists("admin"));
+	}
 }

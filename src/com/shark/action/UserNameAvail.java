@@ -18,7 +18,7 @@ public class UserNameAvail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		PrintWriter out = response.getWriter();
-		if (CommonUtil.getUserService().exists (name)) {//´æÔÚ
+		if (!CommonUtil.getUserService().exists (name)) {//´æÔÚ
 			out.write("{\"success\": true}");
 		}else{
 			out.write("{\"success\": false}");

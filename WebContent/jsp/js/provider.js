@@ -52,17 +52,28 @@ $(function() {
 /**
  * proDetail.jsp
  */
+//检查信息是否有效，并决定是否提交
+var fNameAvail = false;
+var fPhoneAvail = false;
+var fFaxAvail = false;
 function check() {
+	if (!fNameAvail){
+		alert ("该公司已经备案");
+		return false;
+	}else if (!fPhoneAvail){
+		alert ("手机号码格式错误，请检查后再提交");
+		return false;
+	}else if (!fFaxAvail){
+		alert ("传真格式错误，请确认后在提交");
+		return false;
+	}
 	var form = document.proDetail;
 	with (form) {
-		if ($("#avail").val("true") == "false"){
-			alter ("请确认信息后再提交");
-			return false;
-		}
 		submit();
 		return true;
 	}
 }
+//验空
 function isEmpty(str) {
 	if (str == null || str == "")
 		return true;
@@ -72,25 +83,30 @@ function isEmpty(str) {
 function search() {
 	document.forms[0].submit();
 }
-
+//检查数据库是否存在此供应商
 $("#providerName").blur (function(){
+	if (isEmpty($("#providerName").val())){
+		fNameAvail = false;
+		return;
+	}
 	$.ajax({
 		type : "POST",
 		url : "/SuperMarket/pro/NameAvail",
 		data : "name=" + $("#providerName").val(),
 		success : function(data) {
 			var dataobj = JSON.parse(data);
-			if (dataobj.success) {//可注册
+			if (!dataobj.success) {//可注册
 				$("#providerName").next().html("太棒了，您又为公司找到了新的货源");
-				$("#avail").val("true");
+				fNameAvail = true;
 			} else {//公司名已被占用
-				$("#providerName").next().html("该公司已添加入数据库中！");
-				$("#avail").val("false");
+				$("#providerName").next().html("该公司存在于数据库中！");
+				fNameAvail -= false;
 			}
 		}
 	});
 });
-(function (){
+//验证格式
+/*(function (){
 	takeVerify ("#phone", /^\d{11}$/, "手机号可用", "联系方式必须为11位整数");
 	takeVerify("#fax", /^\d{7}$/, "", "传真必须为7位整数")
 })();
@@ -98,12 +114,30 @@ $("#providerName").blur (function(){
 function takeVerify (strId, reg, smsg, emsg){
 	$(strId).blur (function(){
 		if ($(strId).val().match(reg)){
-			$(strId).next().val(smsg);
+			$(strId).next().html(smsg);
 			$("#avail").val("true");
 		}else{
-			$(strId).next().val(emsg);
-			$("#avail").val("true");
+			$(strId).next().html(emsg);
+			$("#avail").val("false");
 		}
 	});
-}
+}*/
+$("#phone").blur (function(){
+	if ($("#phone").val().match(/^\d{11}$/)){
+		$("#phone").next().html("手机号可用");
+		fPhoneAvail = true;
+	}else{
+		$("#phone").next().html("联系方式必须为11位整数");
+		fPhoneAvail = false;
+	}
+});
 
+$("#fax").blur (function(){
+	if ($("#fax").val().match(/^\d{7}$/)){
+		$("#fax").next().html("");
+		fFaxAvail = true;
+	}else{
+		$("#fax").next().html("传真必须为7位整数");
+		fFaxAvail = false;
+	}
+});

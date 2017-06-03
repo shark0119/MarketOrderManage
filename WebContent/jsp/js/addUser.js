@@ -1,3 +1,4 @@
+var fNameAvail = false;
 function check() {
 	var form = document.userDetail;
 	with (form) {
@@ -6,6 +7,11 @@ function check() {
 			userName.focus();
 			return false;
 		}
+		if (!fNameAvail){
+			alert("用户名不合法，请确认后再提交");
+			userName.focus();
+			return false;
+		}			
 		if (isEmpty(password.value)) {
 			alert("密码不能为空");
 			password.focus();
@@ -66,3 +72,23 @@ function isEmpty(str) {
 		return true;
 	return false
 }
+$("#userName").blur (function(){
+	if (isEmpty($("#userName").val()))
+		return;
+	$.ajax({
+		type : "POST",
+		url : "/SuperMarket/ajax/UserNameAvail",
+		data : "name=" + $("#userName").val(),
+		success : function(data) {
+			var dataobj = JSON.parse(data);
+			if (dataobj.success) {//可注册
+				$("#userName").next().html("恭喜您，该用户名尚未注册");
+				fNameAvail = true;
+			} else {//公司名已被占用
+				$("#userName").next().html("该用户名已被占用");
+				fNameAvail -= false;
+			}
+		}
+	});
+});
+

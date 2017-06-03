@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
-<script src="/SuperMarket/jsp/js/provider.js"></script>
+
 <div class="right">
 	<div class="location">
 		<strong>你现在所在的位置是:</strong> <span>供应商管理页面 >> 供应商添加页面</span>
@@ -44,3 +44,4 @@
 		</form>
 	</div>
 </div>
+<script src="/SuperMarket/jsp/js/provider.js"></script>

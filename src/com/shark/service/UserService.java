@@ -10,6 +10,7 @@ import com.shark.sql.CommonSql;
 import com.shark.sql.GenerateSql;
 import com.shark.sql.UserSql;
 import com.shark.util.CommonUtil;
+import com.shark.util.MD5Util;
 
 public class UserService {
 	private GenerateSql gs = null;
@@ -22,7 +23,7 @@ public class UserService {
 	 */
 	public User addUser (User user){
 		String sql = "{?=call addUser (?, ?, ?, ?, ?, ?, ?)}";
-		gs = new UserSql(sql, user.getName(), user.getPwd(), user.getSex(), new java.sql.Date(user.getBirth().getTime()), user.getMobile(), user.getAddress(), user.getRid());
+		gs = new UserSql(sql, user.getName(), MD5Util.string2MD5(user.getPwd()), user.getSex(), new java.sql.Date(user.getBirth().getTime()), user.getMobile(), user.getAddress(), user.getRid());
 		User u1 = ud.addUser(gs);
 		user.setId(u1.getId());
 		return user;
@@ -94,10 +95,21 @@ public class UserService {
 	 * @param pwd
 	 * @return 成功返回用户实例失败返回null
 	 */
-	public User loginVerify (String username, String pwd){
+/*	public User loginVerify (String username, String pwd){
 		String sql = "select * from mk_user where username=? and password = ? ";
 		gs = new UserSql (sql, username, pwd);
 		return ud.getUser(gs) ;
+	}*/
+	public User loginVerify (String username, String pwd){
+		String sql = "select * from mk_user where username=? and password = ? ";
+		gs = new UserSql (sql, username, pwd);
+		User user = ud.getUser(gs);
+		if (user != null){
+			this.updateUser(user);
+		}else if(null == user){
+			user = ud.getUser(new CommonSql(sql, username, MD5Util.string2MD5(pwd)));
+		} 
+		return user;
 	}
 	/**
 	 * 根据用户名查询用户
@@ -137,7 +149,7 @@ public class UserService {
 	public boolean updateUser(User user){
 		String sql = 
 				" update mk_user set username=?, password=?, sex=?, birth=?, mobile=?, address=?, roleid=? where id = ? ";
-		if (-1 != ud.updateUser(new UserSql(sql, user.getName(), user.getPwd(), user.getSex(),
+		if (-1 != ud.updateUser(new UserSql(sql, user.getName(), MD5Util.string2MD5(user.getPwd()), user.getSex(),
 				new java.sql.Date(user.getBirth().getTime()), user.getMobile(), user.getAddress(), user.getRid(), user.getId() )))
 			return true;
 		return false;
@@ -148,7 +160,7 @@ public class UserService {
 	 * @return 存在返回true 不存在返回false
 	 */
 	public boolean exists(String name) {
-		String sql = "select * from mk_user where name=?";
+		String sql = "select * from mk_user where username=?";
 		return null != ud.getUser(new CommonSql(sql, name));
 	}
 }

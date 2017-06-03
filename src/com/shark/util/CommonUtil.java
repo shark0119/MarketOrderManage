@@ -51,23 +51,6 @@ public class CommonUtil {
 		return 0;
 	}
 	
-/*	public static String getRoleName (int id){
-		if (!bd.getConnection())
-			return null;
-		String sql = " select rolename from mk_role where roleid= "+ id +" ";
-		ResultSet rset = bd.executeQuery(sql);
-		try {
-			if (rset.next()){
-				return rset.getString(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();	
-		} finally {
-			bd.closeAll();
-		}	
-		return null;
-	}*/
-	
 	public static UserService getUserService (){
 		return us;
 	}	
