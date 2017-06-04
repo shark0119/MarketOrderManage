@@ -9,9 +9,10 @@
 	<div class="providerAdd">
 		<form action="/SuperMarket/pro/${jumpPage }" method="post" id="proList"
 		name="proDetail">
-			<input type="hidden" name="operation" value="${operation }"/>
+			<input type="hidden" id="operation" name="operation" value="${operation }"/>
 			<input type="hidden" name="id" value="${u_provider.id }">
 			<input type="hidden" id="avail" value="">
+			<input type="hidden" name="h_providerName" id="h_providerName" value="${u_provider.name }">
 			<div>
 				<label for="providerName">供应商名称：</label> <input type="text"
 					name="providerName" id="providerName" value="${u_provider.name }"/> <span>*请输入供应商名称</span>

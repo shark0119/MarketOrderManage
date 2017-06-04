@@ -78,5 +78,6 @@
 </div>
 
 
+<script src="/SuperMarket/jsp/js/common.js"></script>
 <script src="/SuperMarket/jsp/js/order.js"></script>
 <script src="/SuperMarket/jsp/js/authority.js"></script>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shark.util.CommonUtil;
 import com.shark.util.OtherServiceUtil;
 
 /**
@@ -23,7 +24,9 @@ public class GetPrice extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String productId = request.getParameter("productId");
 		String providerId = request.getParameter("providerId");
-		int price = OtherServiceUtil.getPriceById(Integer.parseInt(providerId), Integer.parseInt(productId));
+		int price = -1;
+		if (!CommonUtil.isEmpty(providerId) && !CommonUtil.isEmpty(productId))
+			price = OtherServiceUtil.getPriceById(Integer.parseInt(providerId), Integer.parseInt(productId));
 		System.out.println("µ¥¼ÛÎª:"+price);
 		PrintWriter out = response.getWriter();
 		out.write(Integer.toString(price));

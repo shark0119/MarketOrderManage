@@ -28,7 +28,12 @@ public class ExitSystem extends HttpServlet {
 		Set<Integer> idSet = (Set<Integer>) application.getAttribute("logedId");
 		idSet.remove(id);
 		System.out.println("用户 "+id+" 已下线");
-		response.sendRedirect("/SuperMarket/jsp/login.jsp");
+		response.setHeader("Pragma","No-Cache");
+		response.setHeader("Cache-Control","No-Cache");
+		response.setDateHeader("Expires",-1);
+		response.getWriter().write("<script>location.replace('/SuperMarket/jsp/login.jsp'); event.returnValue=false;</script>"); 
+		
+		//response.sendRedirect("/SuperMarket/jsp/login.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

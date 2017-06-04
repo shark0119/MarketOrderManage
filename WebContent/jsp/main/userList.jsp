@@ -56,5 +56,6 @@
 	</div>
 </div>
 
+<script src="/SuperMarket/jsp/js/common.js"></script>
 <script src="/SuperMarket/jsp/js/userList.js"></script>
 <script src="/SuperMarket/jsp/js/authority.js"></script>

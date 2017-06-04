@@ -46,14 +46,15 @@ $(function() {
 
 $(".updateUserA").click(function() {
 	var id = $(this).parent().parent().children().first().html();
-	isAvail(function() {
+	//isAvail(function() {
 		location.href = "/SuperMarket/action/UpdateUser?id=" + id;
-	});
+	//});
 });
 $(".checkUserA").click(function() {
 	var id = $(this).parent().parent().children().first().html();
 	location.href = "/SuperMarket/action/CheckUser?id=" + id;
 });
 function search() {
-	document.forms[0].submit();
+	if ( checkPage())
+		document.forms[0].submit();
 }

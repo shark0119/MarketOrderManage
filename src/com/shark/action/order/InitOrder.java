@@ -36,11 +36,15 @@ public class InitOrder extends HttpServlet {
 		} else {
 			String p = request.getParameter("pageIndex");
 			String s = request.getParameter("pageSize");
+			String ss = request.getParameter("setPageSize");
 			if (p != null) {
 				pager.setPageIndex(Integer.parseInt(p));
 			}
 			if (s != null) {
 				pager.setPageSize(Integer.parseInt(s));
+			}
+			if (!CommonUtil.isEmpty(ss)){
+				pager.setPageSize(Integer.parseInt(ss));
 			}
 		}
 		String productId = request.getParameter("s_productId");

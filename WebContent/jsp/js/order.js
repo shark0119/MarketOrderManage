@@ -5,9 +5,9 @@ var proId;
 var count = 0;
 $(".alterOrdA").click(function() {
 	var id = $(this).parent().parent().children().first().html();
-	isAvail (function(){
+	//isAvail (function(){
 		location.href = "/SuperMarket/order/UpdateOrder?id=" + id;
-	});
+	//});
 });
 $(".checkOrdA").click(function() {
 	var id = $(this).parent().parent().children().first().html();
@@ -53,6 +53,21 @@ $(function() {
  * proDetail.jsp
  */
 function check() {
+	if ($("#h_ispay").val() == "paid"){//修改订单时状态为已结算
+		location.href = "/SuperMarket/order/InitOrder";	
+		return;
+	}
+	if ($("#proviId option:selected").val() == "-1"){//订单为-1时
+		alert ("请选择供应商");
+		$("#proviId").focus();
+		return;
+	}
+	var pid = $("#productId option:selected").val();
+	if (pid == "" || pid == "-1"){
+		alert ("请选择产品");
+		$("#productId").focus();
+		return;
+	}
 	if (!$("#billNum").val().match (/^\d+$/)){
 		alert ("产品数量必须为整数，请重新输入");
 		$("#billNum").val("");
@@ -67,6 +82,7 @@ function check() {
 		alert ("该公司暂不提供产品");
 		return false;
 	}
+
 	
 	var form = document.orderDetail;
 	$("#totalPrice").removeAttr("disabled");
@@ -169,5 +185,6 @@ $("#billNum").blur(function() {
 	}
 });
 function search() {
-	document.forms[0].submit();
+	if (checkPage())
+		document.forms[0].submit();
 }

@@ -35,13 +35,15 @@ public class InitUser extends HttpServlet {
 		} else {
 			String p = request.getParameter("pageIndex");
 			String s = request.getParameter("pageSize");
-			if (p != null) {
+			String ss = request.getParameter("setPageSize");
+			if (!CommonUtil.isEmpty(p)) {
 				pager.setPageIndex(Integer.parseInt(p));
-				//System.out.println("p is : " + p);
 			}
-			if (s != null) {
+			if (!CommonUtil.isEmpty(s)) {
 				pager.setPageSize(Integer.parseInt(s));
-				//System.out.println("s is : " + s);
+			}
+			if (!CommonUtil.isEmpty(ss)){
+				pager.setPageSize(Integer.parseInt(ss));
 			}
 		}
 		List<User> users ;

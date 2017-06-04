@@ -17,7 +17,7 @@ function isAvail(doSomething){
 	).error(function(){alert ("服务器错误，请稍后再试")});
 }
 function add (url){
-	isAvail (function(){
+	//isAvail (function(){
 		location.href =url;
-	});
+	//});
 }

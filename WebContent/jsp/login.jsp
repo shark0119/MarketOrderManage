@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="css/style.css"/>
     <script type="text/javascript" src="/SuperMarket/jsp/js/jquery.js"></script>
     <script type="text/javascript" src="/SuperMarket/jsp/js/login.js"></script>
+    <script>
+        //防止页面后退
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+    </script>
 </head>
 <body class="login_bg">
     <section class="loginBox">

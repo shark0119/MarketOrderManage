@@ -19,7 +19,9 @@ public class CheckOrder extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pid = request.getParameter("id");
-		Order o = CommonUtil.getOrderService().getOrder(Integer.parseInt(pid));
+		Order o = new Order();
+		if (!CommonUtil.isEmpty(pid))
+			o = CommonUtil.getOrderService().getOrder(Integer.parseInt(pid));
 		Product p = CommonUtil.getProductService().getProductByC_Pid(o.getC_pid());
 		Provider pro = CommonUtil.getProService().getProviderByC_Pid(o.getC_pid());
 		request.setAttribute("product", p);

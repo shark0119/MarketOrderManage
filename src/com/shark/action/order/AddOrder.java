@@ -29,7 +29,9 @@ public class AddOrder extends HttpServlet {
 			Order order =new Order();
 			String productId = request.getParameter("productId");
 			String providerId = request.getParameter("supplier");
-			int cp_id = OtherServiceUtil.getCP_id(
+			int cp_id =-1;
+			if (!CommonUtil.isEmpty(providerId) && !CommonUtil.isEmpty(productId))
+				cp_id = OtherServiceUtil.getCP_id(
 					Integer.parseInt(providerId), Integer.parseInt(productId));
 			String count = request.getParameter("billNum");
 			String desc = request.getParameter("desc");

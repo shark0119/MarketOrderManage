@@ -14,11 +14,12 @@
 			id="ordList" name="orderDetail">
 			<input type="hidden" name="operation" value="${operation }" />
 			<input type="hidden" name="id" value="${u_order.id }">
-			
+			<input type="hidden" name="h_ispay" id="h_ispay" 
+				value="<c:if test='${u_order.ispay eq 2 }'>paid</c:if>">
 			<div>
 				<label>供应商：</label> 
 				<select name="supplier" id="proviId" onchange="onSelectChange()" <c:if test="${u_order.ispay eq 2 }"> disabled="disabled" </c:if>>
-					<option value="">--请选择相应的提供商--</option>
+					<option value="-1">--请选择相应的提供商--</option>
 					<c:forEach items="${providerList }" var="p">
 						<option value="${p.id }" 
 							<c:if test="${u_providerId eq p.id}">selected</c:if>>
@@ -29,8 +30,10 @@
 			</div>
 			<div>
 				<label for="orderName">商品名称：</label>
-				<select name="productId" <c:if test="${empty u_productId }">disabled="disabled"	</c:if> 
-					<c:if test="${u_order.ispay eq 2 }"> disabled="disabled" </c:if> id="productId" onchange="onProChange()">
+				<select name="productId" 
+				<c:if test="${empty u_productId }">disabled="disabled"	</c:if> 
+					<c:if test="${u_order.ispay eq 2 }"> disabled="disabled" 
+					</c:if> id="productId" onchange="onProChange()">
 					<c:forEach items="${u_productList }" var="p" >
 						<option value="${p.id }" 
 							<c:if test="${u_product.id eq p.id}">selected</c:if>>

@@ -8,6 +8,7 @@
 	<div class="providerAdd">
 		<form action="/SuperMarket/action/AddUser" method="post" name="userDetail">
 		<input type="hidden" name="add" value="add"/>
+		<input type="hidden" name="oldUserName" id="oldUserName" value="-1"/>
 			<div>
 				<label for="userName">用户名称：</label> 
 				<input type="text" name="userName" id="userName" /> 
@@ -33,7 +34,12 @@
 			</div>
 			<div>
 				<label for="data">出生日期：</label> 
-				<input type="text" name="date" id="date" class="Wdate" onclick="WdatePicker()"/> <span>*</span>
+				<input type="text" name="date" id="date" class="Wdate" 
+				onClick="WdatePicker({
+					dateFmt:'yyyy-MM-dd',
+					minDate:'{%y-100}-%M-%d',
+					maxDate:'{%y-10}-%M-%d'})"/> 
+				<span>*</span>
 			</div>
 			<div>
 				<label for="phone">用户电话：</label> 

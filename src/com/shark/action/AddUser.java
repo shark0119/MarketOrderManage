@@ -42,7 +42,11 @@ public class AddUser extends HttpServlet {
 			user.setMobile(request.getParameter("phone"));
 			user.setName(request.getParameter("userName"));
 			user.setPwd(request.getParameter("password"));
-			user.setRid(Integer.parseInt(request.getParameter("role")));
+			try{
+				user.setRid(Integer.parseInt(request.getParameter("role")));
+			}catch (Exception e){
+				e.printStackTrace();
+			}
 			user.setSex(request.getParameter("sex"));
 			if (null == CommonUtil.getUserService().addUser(user)){
 				response.getWriter().write("<script>alert('添加失败，数据库错误，请稍后再试');location.href='/SuperMarket/jsp/main/mainPart.jsp';</script>");

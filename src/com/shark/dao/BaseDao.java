@@ -29,6 +29,10 @@ public class BaseDao {
 	 * @return 普通jdbc连接方式连接数据库
 	 */
 	public boolean getConnection(){
+		if (getConnection2()){
+			//System.out.println("JNDI connect database");
+			return true;
+		}
 		try {
 			Class.forName(rb.getString("driver"));
 			connection =DriverManager.getConnection(rb.getString("url"),rb.getString("username"),rb.getString("password"));
@@ -46,7 +50,7 @@ public class BaseDao {
 	public boolean getConnection2(){
 		try {
 			Context context = new InitialContext();
-			DataSource ds=(DataSource) context.lookup("java:comp/env/jdbc/news");
+			DataSource ds=(DataSource) context.lookup("java:comp/env/jdbc/SuperMarket");
 			connection=ds.getConnection();
 			return true;
 		} catch (NamingException e) {

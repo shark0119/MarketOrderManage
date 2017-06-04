@@ -31,52 +31,51 @@ $(function() {
 		$('#removeBi').fadeOut();
 	});
 });
-
 //修改密码的检查
 function alterPwdCheck() {
 	var form = document.alterPwd;
 
 	with (form) {
 		if (isEmpty(oldPassword.value)) {
-			alert("旧密码不能为空");
+			alert("旧密码错误");
 			oldPassword.focus();
 			return;
 		} else if (oldPassword.value.match(/[\w]{6,12}/i)) {
 			if (oldPassword.value.match(/^[a-z]+$/i)) {
-				alert("旧密码不能为纯字母，必须为6-12位的数字和字母组合");
+				alert("旧密码错误");
 				oldPassword.focus();
 				return;
 			} else if (oldPassword.value.match(/^[\d]+$/)) {
-				alert("旧密码不能为纯数字，必须为6-12位的数字和字母组合");
+				alert("旧密码错误");
 				oldPassword.focus();
 				return ;
 			}
 		} else {
-			alert("旧密码必须为6-12位的数字和字母组合");
+			alert("旧密码错误");
 			oldPassword.focus();
 			return ;
 		}
 		if (isEmpty(newPassword.value)) {
-			alert("密码不能为空");
+			alert("新密码必须为6-12位的数字和字母组合");
 			newPassword.focus();
 			return ;
 		} else if (newPassword.value.match(/[\w]{6,12}/i)) {
 			if (newPassword.value.match(/^[a-z]+$/i)) {
-				alert("密码不能为纯字母，必须为6-12位的数字和字母组合");
+				alert("新密码必须为6-12位的数字和字母组合");
 				newPassword.focus();
 				return ;
 			} else if (newPassword.value.match(/^[\d]+$/)) {
-				alert("密码不能为纯数字，必须为6-12位的数字和字母组合");
+				alert("新密码必须为6-12位的数字和字母组合");
 				newPassword.focus();
 				return ;
 			}
 		} else {
-			alert("密码必须为6-12位的数字和字母组合");
+			alert("新密码必须为6-12位的数字和字母组合");
 			newPassword.focus();
 			return ;
 		}
 		if (isEmpty(reNewPassword.value)) {
-			alert("请确认密码");
+			alert("新密码必须为6-12位的数字和字母组合");
 			reNewPassword.focus();
 			return ;
 		} else if (reNewPassword.value != newPassword.value) {
@@ -84,9 +83,9 @@ function alterPwdCheck() {
 			reNewPassword.focus();
 			return ;
 		}
-		
-		var usname = uname.value;
-		var pwd = oldPassword.value;
+
+		var usname =$("#uname").val();
+		var pwd = $("#oldPassword").val();
 		var newPwd = newPassword.value;
 		if (pwd == newPwd){
 			alert('密码未做任何改动。');
@@ -112,11 +111,11 @@ function alterPwdCheck() {
 									if (dataobj.success) {
 										location.href="/SuperMarket/jsp/main/mainPart.jsp";
 									} else {
-										alert("旧密码有误");
+										alert(data.msg);
 									}
 								});
 					} else {
-						alert(dataobj.msg);
+						alert("旧密码有误");
 					}
 		}).error(function() {
 			alert("服务器错误，请稍后再试")
@@ -129,3 +128,24 @@ function isEmpty(str) {
 		return true;
 	return false
 }
+$("#oldPassword").blur (function (){
+	var usname =$("#uname").val();
+	var pwd = $("#oldPassword").val();
+	$.post("/SuperMarket/LoginVerify", 
+			{
+				'username' : usname,
+				'pwd' : pwd
+			}, 
+			function(data) {
+				var dataobj = JSON.parse(data);
+				if (dataobj.success) {
+					//如果验证成功，且旧密码正确，进行ajax提交来修改密码
+					$("#oldPassword").next().html ("旧密码正确，可以修改");
+				} else {
+					$("#oldPassword").next().html ("旧密码有误");
+				}
+	}).error(function() {
+		alert("服务器错误，请稍后再试")
+	});
+});
+

@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.shark.entity.Role;
 import com.shark.entity.User;
@@ -30,21 +31,35 @@ public class UpdateUser extends HttpServlet {
 		String msg = request.getParameter("update");
 		if (!CommonUtil.isEmpty(msg) && msg.equals("update")){
 			User user = new User();
-			user.setId(Integer.parseInt(request.getParameter("id")));
+			try{
+				user.setId(Integer.parseInt(request.getParameter("id")));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+
 			user.setName(request.getParameter("userName"));
-			user.setPwd(request.getParameter("password"));
+			
 			user.setSex(request.getParameter("sex"));
 			try {
 				user.setBirth(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("date")));
 			} catch (ParseException e) {
 				e.printStackTrace();
-				response.getWriter().write("<script>alert('添加失败,请稍后再试');location.href='/SuperMarket/jsp/main/mainPart.jsp';</script>");
+				response.getWriter().write("<script>alert('更新失败,数据不合法,请稍后再试');location.href='/SuperMarket/jsp/main/mainPart.jsp';</script>");
 				return;
 			}
 			user.setMobile(request.getParameter("phone"));
 			user.setAddress(request.getParameter("address"));
 			user.setRid(Integer.parseInt(request.getParameter("role")));
 			System.out.println("update user data:"+user);
+			
+			//判断修改的是否为当前用户
+			int currentId = (int) request.getSession().getAttribute("id");
+			if (user.getId() == currentId){
+				HttpSession session = request.getSession();
+				session.setAttribute("roleid", user.getRid());
+				session.setAttribute("id", user.getId());
+				session.setAttribute("username", user.getName());
+			}
 			if (!CommonUtil.getUserService().updateUser(user)){
 				response.getWriter().write("<script>alert('更新失败，数据库错误，请稍后再试');location.href='/SuperMarket/jsp/main/mainPart.jsp';</script>");
 				return;

@@ -12,7 +12,6 @@
 			<span>供应商名称：</span> 
 			<input type="text" value="${condition.name }" id="providerName" name="s_proName" placeholder="请输入供应商的名称" /> 
 			<input type="button" value="查询" onclick = "search()"/> 
-			
 			<a href="javascript:add('/SuperMarket/pro/AddPro')">添加供应商</a>
 		</div>
 		<!--供应商操作表格-->
@@ -59,5 +58,6 @@
 		</div>
 	</div>
 </div>
+<script src="/SuperMarket/jsp/js/common.js"></script>
 <script src="/SuperMarket/jsp/js/provider.js"></script>
 <script src="/SuperMarket/jsp/js/authority.js"></script>

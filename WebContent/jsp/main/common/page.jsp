@@ -24,6 +24,9 @@
 <input type="button" id="GO" value="GO" />
 <input type="hidden" value="${pager.pageIndex }" name="pageIndex" />
 <input type="hidden" value="${pager.pageSize }" name="pageSize" />
+&nbsp; &nbsp; &nbsp;
+请输入每页显示的个数:
+<input type="text" name="setPageSize" id="setPageSize" value="" size="1" >
 
 <script type="text/javascript">
 	function jump(p, s) {
@@ -34,7 +37,6 @@
 			submit();
 		}
 	}
-
 	$("#GO").click(function() {
 		var $hidden = $(":input:hidden");
 		var page = $("#page").val();

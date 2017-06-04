@@ -19,7 +19,12 @@ public class CheckUser extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uid = request.getParameter("id");
-		User user = CommonUtil.getUserService().getUser(Integer.parseInt(uid));
+		User user = null;
+		try{
+			user = CommonUtil.getUserService().getUser(Integer.parseInt(uid));
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		request.setAttribute("userDetail", user);
 		request.getSession().setAttribute("contentPageName", "checkUser.jsp");
 		request.getRequestDispatcher("/jsp/main/mainPart.jsp").forward(request, response);

@@ -5,9 +5,9 @@ var proId;
 var count = 0;
 $(".alterProA").click(function() {
 	var id = $(this).parent().parent().children().first().html();
-	isAvail(function() {
+	//isAvail(function() {
 		location.href = "/SuperMarket/pro/UpdatePro?id=" + id;
-	});
+	//});
 });
 $(".checkProA").click(function() {
 	var id = $(this).parent().parent().children().first().html();
@@ -57,10 +57,32 @@ var fNameAvail = false;
 var fPhoneAvail = false;
 var fFaxAvail = false;
 function check() {
+	if ($("#phone").val().match(/^\d{11}$/)){
+		$("#phone").next().html("手机号可用");
+		fPhoneAvail = true;
+	}else{
+		$("#phone").next().html("联系方式必须为11位整数");
+		fPhoneAvail = false;
+	}
+	if ($("#fax").val().match(/^\d{7}$/)){
+		$("#fax").next().html("");
+		fFaxAvail = true;
+	}else{
+		$("#fax").next().html("传真必须为7位整数");
+		fFaxAvail = false;
+	}
+	if ($("#providerName").val() == $("#h_providerName").val()){//更新操作则不进行ajax验证
+		fNameAvail = true;
+	}
+	if (isEmpty($("#providerName").val())){
+		alert ("公司名不能为空");
+		return false;
+	}
 	if (!fNameAvail){
 		alert ("该公司已经备案");
 		return false;
 	}else if (!fPhoneAvail){
+
 		alert ("手机号码格式错误，请检查后再提交");
 		return false;
 	}else if (!fFaxAvail){
@@ -81,12 +103,17 @@ function isEmpty(str) {
 }
 
 function search() {
-	document.forms[0].submit();
+	if ( checkPage())
+		document.forms[0].submit();
 }
 //检查数据库是否存在此供应商
 $("#providerName").blur (function(){
-	if (isEmpty($("#providerName").val())){
+	if (isEmpty($("#providerName").val())){ //供应商名不能为空
 		fNameAvail = false;
+		return;
+	}
+	if ($("#providerName").val() == $("#h_providerName").val()){//更新操作则不进行ajax验证
+		fNameAvail = true;
 		return;
 	}
 	$.ajax({
