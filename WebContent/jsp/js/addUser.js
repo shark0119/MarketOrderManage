@@ -68,6 +68,7 @@ function check() {
 			add.focus();
 			return false;
 		}
+		$(":disabled").removeAttr ("disabled");
 		submit();
 		return true;		
 	}

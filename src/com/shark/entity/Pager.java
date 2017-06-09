@@ -51,8 +51,6 @@ public class Pager {
 		if (pageIndex> totalPage){
 			pageIndex =1;
 		}
-		if (totalCount == 0)
-			pageIndex = 0;
 	}
 
 	public int getTotalPage() {

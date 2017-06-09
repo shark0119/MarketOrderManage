@@ -43,7 +43,8 @@
 					id="address" value="${userDetail.address }" />
 			</div>
 			<div>
-				<label for="role">用户角色：</label> <select name="role">
+				<label for="role">用户角色：</label> 
+				<select name="role" <c:if test="${sessionScope.roleid eq 2 }">disabled="disabled"</c:if>>
 					<c:forEach var="role" varStatus="status"
 						items="${requestScope.roleList }">
 						<option value="${role.rid }"

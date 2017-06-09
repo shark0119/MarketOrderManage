@@ -24,6 +24,8 @@ function checkPage() {
 }
 function checkPage2 (){
 	var sps = $("#setPageSize").val();
+	if (sps == null || sps == "")
+		return true;
 	if (!sps.match(/^\d+$/)) {
 		if (sps == null || sps == "")
 			return true

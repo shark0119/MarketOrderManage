@@ -29,10 +29,10 @@ public class BaseDao {
 	 * @return 普通jdbc连接方式连接数据库
 	 */
 	public boolean getConnection(){
-		if (getConnection2()){
-			//System.out.println("JNDI connect database");
+	/*	if (getConnection2()){
+			System.out.println("JNDI connect database");
 			return true;
-		}
+		}*/
 		try {
 			Class.forName(rb.getString("driver"));
 			connection =DriverManager.getConnection(rb.getString("url"),rb.getString("username"),rb.getString("password"));
